@@ -97,8 +97,6 @@ table Gedrag
 				in
 				    #"Type gewijzigd"
 
-	changedProperty = Name
-
 	annotation PBI_NavigationStepName = Navigatie
 
 	annotation PBI_ResultType = Table

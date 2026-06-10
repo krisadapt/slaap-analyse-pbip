@@ -4,7 +4,8 @@ table 'OSCAR Daily'
 	column Date
 		dataType: dateTime
 		formatString: Long Date
-		displayFolder: _Identifiers
+		isHidden
+		displayFolder: _Verborgen
 		lineageTag: 103cbb82-072f-4795-9b5d-46d76b684f28
 		summarizeBy: none
 		sourceColumn: Date
@@ -15,7 +16,6 @@ table 'OSCAR Daily'
 
 	column Event
 		dataType: string
-		displayFolder: CPAP — Events
 		lineageTag: e9594534-0c2b-451b-9fdf-9064256dec93
 		summarizeBy: none
 		sourceColumn: Event
@@ -24,7 +24,8 @@ table 'OSCAR Daily'
 
 	column Waarde
 		dataType: double
-		displayFolder: CPAP — Waarden
+		isHidden
+		displayFolder: _Verborgen
 		lineageTag: eb2835a4-0a65-4bc9-8929-7b60746ec15b
 		summarizeBy: sum
 		sourceColumn: Waarde
@@ -35,7 +36,6 @@ table 'OSCAR Daily'
 
 	column Metric
 		dataType: string
-		displayFolder: CPAP — Classificatie
 		lineageTag: 12dc225b-359a-46ee-9514-cb135d940784
 		summarizeBy: none
 		sourceColumn: Metric
@@ -44,7 +44,6 @@ table 'OSCAR Daily'
 
 	column Type
 		dataType: string
-		displayFolder: CPAP — Classificatie
 		lineageTag: 28ecff1b-cb08-43d7-ab6b-69b6cd8bd338
 		summarizeBy: none
 		sourceColumn: Type

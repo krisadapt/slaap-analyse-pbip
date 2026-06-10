@@ -1,21 +1,22 @@
 table 'OSCAR Details'
 	lineageTag: 3fe425e8-6c35-4f09-a7eb-911851bbf5ce
 
-	column Date
+	/// Exacte timestamp van het event (uit OSCAR Details-export)
+	column DateTime
 		dataType: dateTime
-		formatString: Long Date
+		isHidden
+		displayFolder: _Verborgen
+		formatString: General Date
 		lineageTag: 9c4c6b91-bd9d-45db-a1dc-25876eee4838
 		summarizeBy: none
-		sourceColumn: Date
-
-		changedProperty = DataType
+		sourceColumn: DateTime
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation UnderlyingDateTimeDataType = Date
-
 	column Session
 		dataType: string
+		isHidden
+		displayFolder: _Verborgen
 		lineageTag: d04f7439-8f52-492e-b072-db84c028243b
 		summarizeBy: none
 		sourceColumn: Session
@@ -32,6 +33,8 @@ table 'OSCAR Details'
 
 	column Data/Duration
 		dataType: double
+		isHidden
+		displayFolder: _Verborgen
 		lineageTag: 20ed3311-d281-45dd-b9e8-cd399a20ca61
 		summarizeBy: sum
 		sourceColumn: Data/Duration
@@ -39,6 +42,52 @@ table 'OSCAR Details'
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Ontwaakdatum van de nacht waartoe het event behoort (relatiekey naar Kalender). OSCAR-conventie: de nacht splitst om 12:00 's middags.
+	column Nacht
+		dataType: dateTime
+		isHidden
+		displayFolder: _Verborgen
+		formatString: Long Date
+		lineageTag: 7d4f2a91-3b8e-4c15-a6d2-91e5f8c30b44
+		summarizeBy: none
+		sourceColumn: Nacht
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// Centraal (CA) vs. Obstructief/Hypopneu (OA, A, H, UA) vs. Overig — voor kleurcodering in visuals
+	column Eventgroep
+		dataType: string
+		lineageTag: 2e8a5c47-9f31-4d62-b8e4-5a7c91d2f803
+		summarizeBy: none
+		sourceColumn: Eventgroep
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Kwartier van de nacht (HH:mm), gesorteerd van 12:00 's middags tot 11:45 via KwartierVolgorde
+	column Kwartier
+		dataType: string
+		lineageTag: 6b3d9e12-8c54-4f7a-92c1-3e6f80a4d527
+		summarizeBy: none
+		sourceColumn: Kwartier
+		sortByColumn: KwartierVolgorde
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column KwartierVolgorde
+		dataType: int64
+		isHidden
+		displayFolder: _Verborgen
+		formatString: 0
+		lineageTag: 4a1c7f58-2d96-4e83-b1f5-8c2a64d90e71
+		summarizeBy: none
+		sourceColumn: KwartierVolgorde
+
+		annotation SummarizationSetBy = Automatic
 
 	partition 'OSCAR Details' = m
 		mode: import
@@ -52,11 +101,15 @@ table 'OSCAR Details'
 				    #"Andere kolommen verwijderd1" = Table.SelectColumns(#"Aangepaste functie aanroepen1", {"Bestand transformeren"}),
 				    #"Tabelkolom uitgevouwen1" = Table.ExpandTableColumn(#"Andere kolommen verwijderd1", "Bestand transformeren", Table.ColumnNames(#"Bestand transformeren"(Voorbeeldbestand))),
 				    #"Type gewijzigd" = Table.TransformColumnTypes(#"Tabelkolom uitgevouwen1",{{"DateTime", type datetime}, {"Session", type text}, {"Event", type text}, {"Data/Duration", type number}}),
-				    #"Namen van kolommen gewijzigd" = Table.RenameColumns(#"Type gewijzigd",{{"DateTime", "Date"}})
+				    // Nacht = ontwaakdatum: events vóór 12:00 horen bij de afgelopen nacht, events na 12:00 bij de komende (OSCAR splitst om 12:00)
+				    #"Nacht toegevoegd" = Table.AddColumn(#"Type gewijzigd", "Nacht", each Date.From([DateTime] + #duration(0, 12, 0, 0)), type date),
+				    #"Eventgroep toegevoegd" = Table.AddColumn(#"Nacht toegevoegd", "Eventgroep", each if [Event] = "CA" then "Centraal" else if List.Contains({"OA", "A", "H", "UA"}, [Event]) then "Obstructief/Hypopneu" else "Overig", type text),
+				    #"Kwartier toegevoegd" = Table.AddColumn(#"Eventgroep toegevoegd", "Kwartier", each Text.PadStart(Text.From(Time.Hour(DateTime.Time([DateTime]))), 2, "0") & ":" & Text.PadStart(Text.From(Number.IntegerDivide(Time.Minute(DateTime.Time([DateTime])), 15) * 15), 2, "0"), type text),
+				    // Sorteervolgorde: minuten sinds 12:00 's middags, zodat de nacht chronologisch loopt (12:00 → 11:45)
+				    #"KwartierVolgorde toegevoegd" = Table.AddColumn(#"Kwartier toegevoegd", "KwartierVolgorde", each let m = Time.Hour(DateTime.Time([DateTime])) * 60 + Number.IntegerDivide(Time.Minute(DateTime.Time([DateTime])), 15) * 15 in if m >= 720 then m - 720 else m + 720, Int64.Type)
 				in
-				    #"Namen van kolommen gewijzigd"
+				    #"KwartierVolgorde toegevoegd"
 
 	annotation PBI_NavigationStepName = Navigatie
 
 	annotation PBI_ResultType = Table
-

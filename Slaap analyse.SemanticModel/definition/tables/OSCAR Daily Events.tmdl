@@ -3,6 +3,8 @@ table 'OSCAR Daily Events'
 
 	column Date
 		dataType: dateTime
+		isHidden
+		displayFolder: _Verborgen
 		formatString: Long Date
 		lineageTag: 49636485-bec4-4a3b-9ebf-b360b44242fc
 		summarizeBy: none
@@ -41,6 +43,8 @@ table 'OSCAR Daily Events'
 
 	column 'Total Time'
 		dataType: double
+		isHidden
+		displayFolder: _Verborgen
 		lineageTag: fbc0f34f-7a4a-43f7-8fa1-c248701dabcd
 		summarizeBy: sum
 		sourceColumn: Total Time
@@ -51,6 +55,8 @@ table 'OSCAR Daily Events'
 
 	column AHI
 		dataType: double
+		isHidden
+		displayFolder: _Verborgen
 		lineageTag: 0d531335-f90a-4f3e-a0b4-fb3d5720c2b8
 		summarizeBy: sum
 		sourceColumn: AHI

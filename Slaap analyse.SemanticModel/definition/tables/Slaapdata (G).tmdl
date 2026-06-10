@@ -4,7 +4,8 @@ table 'Slaapdata (G)'
 	column datum
 		dataType: dateTime
 		formatString: Long Date
-		displayFolder: _Identifiers
+		isHidden
+		displayFolder: _Verborgen
 		lineageTag: ec9354c2-3f72-418e-a821-8139184bbac5
 		summarizeBy: none
 		sourceColumn: datum
@@ -16,7 +17,8 @@ table 'Slaapdata (G)'
 	column slaap_start
 		dataType: dateTime
 		formatString: General Date
-		displayFolder: _Identifiers
+		isHidden
+		displayFolder: _Verborgen
 		lineageTag: 14547b89-097c-48b9-9888-90d2a3b0055b
 		summarizeBy: none
 		sourceColumn: slaap_start
@@ -26,7 +28,8 @@ table 'Slaapdata (G)'
 	column slaap_einde
 		dataType: dateTime
 		formatString: General Date
-		displayFolder: _Identifiers
+		isHidden
+		displayFolder: _Verborgen
 		lineageTag: 2feb2193-179d-4184-b891-8f71c59ed544
 		summarizeBy: none
 		sourceColumn: slaap_einde
@@ -36,7 +39,8 @@ table 'Slaapdata (G)'
 	column totale_slaap_uur
 		dataType: double
 		formatString: 0.0
-		displayFolder: Garmin — Slaafduur
+		isHidden
+		displayFolder: _Verborgen
 		lineageTag: b80e6c9e-5b9d-4e9b-9584-20f19b24cb85
 		summarizeBy: sum
 		sourceColumn: totale_slaap_uur
@@ -46,7 +50,8 @@ table 'Slaapdata (G)'
 	column diepe_slaap_uur
 		dataType: double
 		formatString: 0.0
-		displayFolder: Garmin — Slaadfasen
+		isHidden
+		displayFolder: _Verborgen
 		lineageTag: 045387a3-ba98-40e2-a488-1f915aa0be38
 		summarizeBy: sum
 		sourceColumn: diepe_slaap_uur
@@ -56,7 +61,8 @@ table 'Slaapdata (G)'
 	column lichte_slaap_uur
 		dataType: double
 		formatString: 0.0
-		displayFolder: Garmin — Slaadfasen
+		isHidden
+		displayFolder: _Verborgen
 		lineageTag: a2c318a1-2393-4be9-8e02-6b04842e2120
 		summarizeBy: sum
 		sourceColumn: lichte_slaap_uur
@@ -66,7 +72,8 @@ table 'Slaapdata (G)'
 	column rem_slaap_uur
 		dataType: double
 		formatString: 0.0
-		displayFolder: Garmin — Slaadfasen
+		isHidden
+		displayFolder: _Verborgen
 		lineageTag: 64988f69-d521-4a99-a2d0-db8c4793a42d
 		summarizeBy: sum
 		sourceColumn: rem_slaap_uur
@@ -76,7 +83,8 @@ table 'Slaapdata (G)'
 	column wakker_uur
 		dataType: double
 		formatString: 0.0
-		displayFolder: Garmin — Slaadfasen
+		isHidden
+		displayFolder: _Verborgen
 		lineageTag: 0473c198-8950-49ee-9db7-db51dde0859c
 		summarizeBy: sum
 		sourceColumn: wakker_uur
@@ -86,7 +94,8 @@ table 'Slaapdata (G)'
 	column slaapscore
 		dataType: int64
 		formatString: 0
-		displayFolder: Garmin — Kwaliteit
+		isHidden
+		displayFolder: _Verborgen
 		lineageTag: a6341fd0-537b-4739-a14c-e4f6a8b0442a
 		summarizeBy: sum
 		sourceColumn: slaapscore
@@ -95,7 +104,6 @@ table 'Slaapdata (G)'
 
 	column slaapscore_kwalificatie
 		dataType: string
-		displayFolder: Garmin — Kwaliteit
 		lineageTag: 1c2e5d7d-fd04-42d1-908e-4f3803180004
 		summarizeBy: none
 		sourceColumn: slaapscore_kwalificatie
@@ -105,7 +113,8 @@ table 'Slaapdata (G)'
 	column gemiddelde_ademhaling
 		dataType: double
 		formatString: 0.0
-		displayFolder: Garmin — Vitals
+		isHidden
+		displayFolder: _Verborgen
 		lineageTag: afc75bd2-4c24-4f75-86f8-1582373c85bf
 		summarizeBy: sum
 		sourceColumn: gemiddelde_ademhaling
@@ -115,7 +124,8 @@ table 'Slaapdata (G)'
 	column gemiddelde_hartslag_in_slaap
 		dataType: int64
 		formatString: 0
-		displayFolder: Garmin — Hart & Stress
+		isHidden
+		displayFolder: _Verborgen
 		lineageTag: 168358d1-2c1a-490a-a84b-2d85b8e2d203
 		summarizeBy: sum
 		sourceColumn: gemiddelde_hartslag_in_slaap
@@ -125,7 +135,8 @@ table 'Slaapdata (G)'
 	column gemiddelde_hrv
 		dataType: double
 		formatString: 0
-		displayFolder: Garmin — Hart & Stress
+		isHidden
+		displayFolder: _Verborgen
 		lineageTag: af52601f-3c7d-40d8-a9d2-597811adb62a
 		summarizeBy: none
 		sourceColumn: gemiddelde_hrv
@@ -134,7 +145,6 @@ table 'Slaapdata (G)'
 
 	column aantal_ontwakingen
 		dataType: string
-		displayFolder: Garmin — Fragmentatie
 		lineageTag: cade319c-c016-48cc-8aa9-3643f94583a6
 		summarizeBy: none
 		sourceColumn: aantal_ontwakingen
@@ -143,7 +153,6 @@ table 'Slaapdata (G)'
 
 	column onrustige_momenten
 		dataType: string
-		displayFolder: Garmin — Fragmentatie
 		lineageTag: 7ebf6cee-8c8b-440e-982e-ca447d717c18
 		summarizeBy: none
 		sourceColumn: onrustige_momenten
@@ -152,7 +161,6 @@ table 'Slaapdata (G)'
 
 	column gem_slaapstress
 		dataType: string
-		displayFolder: Garmin — Hart & Stress
 		lineageTag: 61698504-e241-43dd-99f6-002adedd0439
 		summarizeBy: none
 		sourceColumn: gem_slaapstress
@@ -161,7 +169,6 @@ table 'Slaapdata (G)'
 
 	column bb_start
 		dataType: string
-		displayFolder: Garmin — Body Battery
 		lineageTag: 0daf79b6-7964-430b-9f0f-1b5d6581f49b
 		summarizeBy: none
 		sourceColumn: bb_start
@@ -170,7 +177,6 @@ table 'Slaapdata (G)'
 
 	column bb_einde
 		dataType: string
-		displayFolder: Garmin — Body Battery
 		lineageTag: e814bd9a-bb1a-40a7-a1fc-43f618f15a5c
 		summarizeBy: none
 		sourceColumn: bb_einde
@@ -179,7 +185,6 @@ table 'Slaapdata (G)'
 
 	column bb_laagste
 		dataType: string
-		displayFolder: Garmin — Body Battery
 		lineageTag: 19e89a56-c44a-4b3f-814c-f93d1569111b
 		summarizeBy: none
 		sourceColumn: bb_laagste
@@ -188,7 +193,6 @@ table 'Slaapdata (G)'
 
 	column bb_hoogste
 		dataType: string
-		displayFolder: Garmin — Body Battery
 		lineageTag: efee0f13-f0d0-401e-ab2c-77e65330fc91
 		summarizeBy: none
 		sourceColumn: bb_hoogste
@@ -197,7 +201,6 @@ table 'Slaapdata (G)'
 
 	column bb_verandering
 		dataType: string
-		displayFolder: Garmin — Body Battery
 		lineageTag: 64129305-9bd4-4f7f-9dd6-c70891ffbc9c
 		summarizeBy: none
 		sourceColumn: bb_verandering
@@ -206,7 +209,6 @@ table 'Slaapdata (G)'
 
 	column spo2_gem_trend
 		dataType: string
-		displayFolder: Garmin — SpO₂ Trend
 		lineageTag: 16f19598-4caf-40cc-a06a-51eeef180bb8
 		summarizeBy: none
 		sourceColumn: spo2_gem_trend

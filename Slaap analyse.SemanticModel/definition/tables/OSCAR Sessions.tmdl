@@ -3,6 +3,8 @@ table 'OSCAR Sessions'
 
 	column Date
 		dataType: dateTime
+		isHidden
+		displayFolder: _Verborgen
 		formatString: Long Date
 		lineageTag: 17a5a9f8-e661-4ec3-b0ba-a6a7913da175
 		summarizeBy: none

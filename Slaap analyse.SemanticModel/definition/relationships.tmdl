@@ -19,7 +19,7 @@ relationship 9a965258-4f51-7bd0-bb66-0cb50b429919
 	toColumn: Kalender.Datum
 
 relationship 7c227ce1-6adf-8e0d-8c1f-6af046df6459
-	fromColumn: 'OSCAR Details'.Date
+	fromColumn: 'OSCAR Details'.Nacht
 	toColumn: Kalender.Datum
 
 relationship 8e728f69-186b-c72a-ad82-dc0fa48fec9f
