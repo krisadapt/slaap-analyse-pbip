@@ -5,8 +5,8 @@ table 'OSCAR Details'
 	column DateTime
 		dataType: dateTime
 		isHidden
-		displayFolder: _Verborgen
 		formatString: General Date
+		displayFolder: _Verborgen
 		lineageTag: 9c4c6b91-bd9d-45db-a1dc-25876eee4838
 		summarizeBy: none
 		sourceColumn: DateTime
@@ -47,8 +47,8 @@ table 'OSCAR Details'
 	column Nacht
 		dataType: dateTime
 		isHidden
-		displayFolder: _Verborgen
 		formatString: Long Date
+		displayFolder: _Verborgen
 		lineageTag: 7d4f2a91-3b8e-4c15-a6d2-91e5f8c30b44
 		summarizeBy: none
 		sourceColumn: Nacht
@@ -81,8 +81,8 @@ table 'OSCAR Details'
 	column KwartierVolgorde
 		dataType: int64
 		isHidden
-		displayFolder: _Verborgen
 		formatString: 0
+		displayFolder: _Verborgen
 		lineageTag: 4a1c7f58-2d96-4e83-b1f5-8c2a64d90e71
 		summarizeBy: none
 		sourceColumn: KwartierVolgorde
@@ -113,3 +113,4 @@ table 'OSCAR Details'
 	annotation PBI_NavigationStepName = Navigatie
 
 	annotation PBI_ResultType = Table
+

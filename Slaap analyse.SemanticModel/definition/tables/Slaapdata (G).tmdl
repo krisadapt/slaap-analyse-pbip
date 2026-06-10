@@ -3,8 +3,8 @@ table 'Slaapdata (G)'
 
 	column datum
 		dataType: dateTime
-		formatString: Long Date
 		isHidden
+		formatString: Long Date
 		displayFolder: _Verborgen
 		lineageTag: ec9354c2-3f72-418e-a821-8139184bbac5
 		summarizeBy: none
@@ -16,8 +16,8 @@ table 'Slaapdata (G)'
 
 	column slaap_start
 		dataType: dateTime
-		formatString: General Date
 		isHidden
+		formatString: General Date
 		displayFolder: _Verborgen
 		lineageTag: 14547b89-097c-48b9-9888-90d2a3b0055b
 		summarizeBy: none
@@ -27,8 +27,8 @@ table 'Slaapdata (G)'
 
 	column slaap_einde
 		dataType: dateTime
-		formatString: General Date
 		isHidden
+		formatString: General Date
 		displayFolder: _Verborgen
 		lineageTag: 2feb2193-179d-4184-b891-8f71c59ed544
 		summarizeBy: none
@@ -38,8 +38,8 @@ table 'Slaapdata (G)'
 
 	column totale_slaap_uur
 		dataType: double
-		formatString: 0.0
 		isHidden
+		formatString: 0.0
 		displayFolder: _Verborgen
 		lineageTag: b80e6c9e-5b9d-4e9b-9584-20f19b24cb85
 		summarizeBy: sum
@@ -49,8 +49,8 @@ table 'Slaapdata (G)'
 
 	column diepe_slaap_uur
 		dataType: double
-		formatString: 0.0
 		isHidden
+		formatString: 0.0
 		displayFolder: _Verborgen
 		lineageTag: 045387a3-ba98-40e2-a488-1f915aa0be38
 		summarizeBy: sum
@@ -60,8 +60,8 @@ table 'Slaapdata (G)'
 
 	column lichte_slaap_uur
 		dataType: double
-		formatString: 0.0
 		isHidden
+		formatString: 0.0
 		displayFolder: _Verborgen
 		lineageTag: a2c318a1-2393-4be9-8e02-6b04842e2120
 		summarizeBy: sum
@@ -71,8 +71,8 @@ table 'Slaapdata (G)'
 
 	column rem_slaap_uur
 		dataType: double
-		formatString: 0.0
 		isHidden
+		formatString: 0.0
 		displayFolder: _Verborgen
 		lineageTag: 64988f69-d521-4a99-a2d0-db8c4793a42d
 		summarizeBy: sum
@@ -82,8 +82,8 @@ table 'Slaapdata (G)'
 
 	column wakker_uur
 		dataType: double
-		formatString: 0.0
 		isHidden
+		formatString: 0.0
 		displayFolder: _Verborgen
 		lineageTag: 0473c198-8950-49ee-9db7-db51dde0859c
 		summarizeBy: sum
@@ -93,8 +93,8 @@ table 'Slaapdata (G)'
 
 	column slaapscore
 		dataType: int64
-		formatString: 0
 		isHidden
+		formatString: 0
 		displayFolder: _Verborgen
 		lineageTag: a6341fd0-537b-4739-a14c-e4f6a8b0442a
 		summarizeBy: sum
@@ -112,8 +112,8 @@ table 'Slaapdata (G)'
 
 	column gemiddelde_ademhaling
 		dataType: double
-		formatString: 0.0
 		isHidden
+		formatString: 0.0
 		displayFolder: _Verborgen
 		lineageTag: afc75bd2-4c24-4f75-86f8-1582373c85bf
 		summarizeBy: sum
@@ -123,8 +123,8 @@ table 'Slaapdata (G)'
 
 	column gemiddelde_hartslag_in_slaap
 		dataType: int64
-		formatString: 0
 		isHidden
+		formatString: 0
 		displayFolder: _Verborgen
 		lineageTag: 168358d1-2c1a-490a-a84b-2d85b8e2d203
 		summarizeBy: sum
@@ -134,8 +134,8 @@ table 'Slaapdata (G)'
 
 	column gemiddelde_hrv
 		dataType: double
-		formatString: 0
 		isHidden
+		formatString: 0
 		displayFolder: _Verborgen
 		lineageTag: af52601f-3c7d-40d8-a9d2-597811adb62a
 		summarizeBy: none

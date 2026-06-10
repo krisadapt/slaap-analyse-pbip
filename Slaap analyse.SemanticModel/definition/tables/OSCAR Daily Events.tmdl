@@ -4,8 +4,8 @@ table 'OSCAR Daily Events'
 	column Date
 		dataType: dateTime
 		isHidden
-		displayFolder: _Verborgen
 		formatString: Long Date
+		displayFolder: _Verborgen
 		lineageTag: 49636485-bec4-4a3b-9ebf-b360b44242fc
 		summarizeBy: none
 		sourceColumn: Date

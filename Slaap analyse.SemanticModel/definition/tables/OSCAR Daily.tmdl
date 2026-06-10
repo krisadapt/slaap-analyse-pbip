@@ -3,8 +3,8 @@ table 'OSCAR Daily'
 
 	column Date
 		dataType: dateTime
-		formatString: Long Date
 		isHidden
+		formatString: Long Date
 		displayFolder: _Verborgen
 		lineageTag: 103cbb82-072f-4795-9b5d-46d76b684f28
 		summarizeBy: none

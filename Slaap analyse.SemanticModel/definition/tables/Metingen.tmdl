@@ -2,12 +2,182 @@
 table Metingen
 	lineageTag: 1dcdc921-5c58-4bac-b5bc-0ddb3c2a7b55
 
-	/// Gemiddelde totale slaapperiode in uren
-	/// 
-	measure 'Totale Slaapuur Gemiddelde' = AVERAGE('Slaapdata (G)'[totale_slaap_uur])
+	/// Gemiddelde AHI per nacht (ongewogen): events per uur maskergebruik. Norm: < 5 normaal, 5–15 mild.
+	measure AHI = AVERAGE('OSCAR Daily Events'[AHI])
 		formatString: 0.0
-		displayFolder: Garmin — Slaapduur
+		displayFolder: OSCAR — AHI
+		lineageTag: 8d2c6a42-db55-41cf-b9af-4eb94adea99c
+
+	/// 7-daags voortschrijdend gemiddelde van de AHI (venster van 7 nachten, gaten tellen niet mee)
+	measure 'AHI 7d' =
+			AVERAGEX(
+			    DATESINPERIOD(Kalender[Datum], MAX(Kalender[Datum]), -7, DAY),
+			    CALCULATE(AVERAGE('OSCAR Daily Events'[AHI]))
+			)
+		formatString: 0.0
+		displayFolder: OSCAR — AHI
+		lineageTag: 3f7a1b58-9c24-4e61-b2d5-7a8f30c91e42
+
+	/// Gewogen AHI: alle events gedeeld door alle maskeruren over de geselecteerde periode
+	measure 'AHI gewogen' = DIVIDE([Events totaal], [Maskeruren])
+		formatString: 0.0
+		displayFolder: OSCAR — AHI
+		lineageTag: 5e2c8f91-4a73-4b06-9d18-2c5e6f7a8b93
+
+	/// Referentielijn: klinische grens AHI = 5
+	measure 'AHI referentie' = 5
+		formatString: 0
+		displayFolder: OSCAR — AHI
+		lineageTag: 9b4d2e76-1f85-4c39-a627-8e3b5d4c7f10
+
+	/// Totaal aantal apneu-gerelateerde events (CA + OA + A + H + UA) uit de dagelijkse OSCAR-data
+	measure 'Events totaal' =
+			CALCULATE(
+			    SUM('OSCAR Daily'[Waarde]),
+			    'OSCAR Daily'[Metric] = "Count",
+			    'OSCAR Daily'[Event] IN { "CA", "OA", "A", "H", "UA" }
+			)
+		formatString: 0
+		displayFolder: OSCAR — Events
+		lineageTag: 6a8e3d27-5b94-4f10-8c36-1d7e9f2a4b58
+
+	/// Aantal centrale apneus (CA)
+	measure 'CA events' =
+			CALCULATE(
+			    SUM('OSCAR Daily'[Waarde]),
+			    'OSCAR Daily'[Metric] = "Count",
+			    'OSCAR Daily'[Event] = "CA"
+			)
+		formatString: 0
+		displayFolder: OSCAR — Events
+		lineageTag: 2c5f8a14-7e36-4d92-b1a8-9f4c3e6d5a07
+
+	/// Aandeel centrale apneus in het totaal. Centraal = geen ademprikkel vanuit de hersenstam; CPAP-druk lost dit niet op.
+	measure 'CA aandeel' = DIVIDE([CA events], [Events totaal])
+		formatString: 0%
+		displayFolder: OSCAR — Events
+		lineageTag: 7d1b4f82-3a59-4c67-9e25-6b8d2f1c4e93
+
+	/// Aantal events uit de detailexport (voor de kwartier-visual op de nacht-detailpagina)
+	measure 'Events (detail)' = COUNTROWS('OSCAR Details')
+		formatString: 0
+		displayFolder: OSCAR — Events
+		lineageTag: 4e9c2a67-8d15-4b38-a7f2-3c6e1d5b9f84
+
+	/// Uren maskergebruik (Total Time uit OSCAR Summary, al omgerekend naar uren)
+	measure Maskeruren = SUM('OSCAR Daily Events'[Total Time])
+		formatString: 0.0
+		displayFolder: OSCAR — Gebruik
+		lineageTag: 1f6d3b95-2e48-4a71-b8c3-5d9e7f2a6c41
+
+	/// Gemiddelde maskeruren per nacht
+	measure 'Maskeruren gemiddeld' = AVERAGE('OSCAR Daily Events'[Total Time])
+		formatString: 0.0
+		displayFolder: OSCAR — Gebruik
+		lineageTag: 8a3e5c72-9f41-4d86-b2e7-1c4f6d8a3b59
+
+	/// Som van de OSCAR Daily-waarde met dynamische opmaak per metric-type: counts geheel, AHI/index en drukwaarden met één decimaal
+	measure 'Waarde (dynamisch)' = SUM('OSCAR Daily'[Waarde])
+		displayFolder: OSCAR — Events
+		lineageTag: 3b7f1e48-6c25-4a93-8d61-2e9f4b7c5a16
+
+		formatStringDefinition =
+				SWITCH(
+				    SELECTEDVALUE('OSCAR Daily'[Metric]),
+				    "Count", "0",
+				    "Index", "0.0",
+				    "0.0"
+				)
+
+	/// Gemiddelde totale slaapduur per nacht in uren (Garmin, inslapen tot ontwaken)
+	measure Slaapuren = AVERAGE('Slaapdata (G)'[totale_slaap_uur])
+		formatString: 0.0
+		displayFolder: Garmin — Slaap
 		lineageTag: c6d829f0-23be-4162-8677-538cc89be43b
+
+	/// Kortste nacht in de selectie
+	measure 'Slaapuren min' = MIN('Slaapdata (G)'[totale_slaap_uur])
+		formatString: 0.0
+		displayFolder: Garmin — Slaap
+		lineageTag: 5d8f2c61-4b97-4e35-a1d8-7f3e9c2b6a54
+
+	/// Langste nacht in de selectie
+	measure 'Slaapuren max' = MAX('Slaapdata (G)'[totale_slaap_uur])
+		formatString: 0.0
+		displayFolder: Garmin — Slaap
+		lineageTag: 9e4a7d23-1c68-4f95-b3a6-8d2f5e7c4b91
+
+	/// Gemiddelde uren diepe slaap per nacht (richtwaarde ~1–1,5 u)
+	measure 'Diepe slaap (u)' = AVERAGE('Slaapdata (G)'[diepe_slaap_uur])
+		formatString: 0.0
+		displayFolder: Garmin — Slaapfasen
+		lineageTag: 7c2e9f56-3a84-4d17-9b62-4e8c1f5d7a39
+
+	/// Gemiddelde uren lichte slaap per nacht
+	measure 'Lichte slaap (u)' = AVERAGE('Slaapdata (G)'[lichte_slaap_uur])
+		formatString: 0.0
+		displayFolder: Garmin — Slaapfasen
+		lineageTag: 2f8b4a91-6e53-4c27-a9d4-1b7e3f6c8d25
+
+	/// Gemiddelde uren REM-slaap per nacht (richtwaarde ~1,5–2 u)
+	measure 'REM (u)' = AVERAGE('Slaapdata (G)'[rem_slaap_uur])
+		formatString: 0.0
+		displayFolder: Garmin — Slaapfasen
+		lineageTag: 6d3a8e74-5c92-4f16-b8e3-9a2d4f7b5c68
+
+	/// Gemiddelde uren wakker per nacht
+	measure 'Wakker (u)' = AVERAGE('Slaapdata (G)'[wakker_uur])
+		formatString: 0.0
+		displayFolder: Garmin — Slaapfasen
+		lineageTag: 1e7c5b29-8f46-4a83-9d57-3c6e2a9f4b71
+
+	/// Gemiddelde Garmin-slaapscore (0–100, 80+ = goed)
+	measure Slaapscore = AVERAGE('Slaapdata (G)'[slaapscore])
+		formatString: 0
+		displayFolder: Garmin — Kwaliteit
+		lineageTag: 4b9d6f35-2a78-4e51-8c94-7d1f3e5a8b26
+
+	/// Gemiddelde HRV tijdens slaap in ms. Alleen zinvol t.o.v. eigen baseline (~53 ms).
+	measure HRV = AVERAGE('Slaapdata (G)'[gemiddelde_hrv])
+		formatString: 0
+		displayFolder: Garmin — Kwaliteit
+		lineageTag: 8e1f4c67-9b25-4d83-a6f1-5c3d7e9a2b48
+
+	/// AHI over alle nachten, ongeacht selectie — voor de "deze nacht vs. gemiddelde"-vergelijking
+	measure 'AHI alle nachten' = CALCULATE([AHI], ALL(Kalender))
+		formatString: 0.0
+		displayFolder: Vergelijking
+		lineageTag: 3c6e8a52-7d41-4b96-9e28-1f5b4d7c3a85
+
+	/// Slaapuren over alle nachten, ongeacht selectie
+	measure 'Slaapuren alle nachten' = CALCULATE([Slaapuren], ALL(Kalender))
+		formatString: 0.0
+		displayFolder: Vergelijking
+		lineageTag: 9f2b5d78-4e63-4a17-b5c9-8a1e6f3d2c54
+
+	/// REM-uren over alle nachten, ongeacht selectie
+	measure 'REM alle nachten' = CALCULATE([REM (u)], ALL(Kalender))
+		formatString: 0.0
+		displayFolder: Vergelijking
+		lineageTag: 5a8c3f16-2d97-4e64-8b35-7c4f9e1a6d82
+
+	/// Diepe slaap over alle nachten, ongeacht selectie
+	measure 'Diepe slaap alle nachten' = CALCULATE([Diepe slaap (u)], ALL(Kalender))
+		formatString: 0.0
+		displayFolder: Vergelijking
+		lineageTag: 7e4b9a63-1f28-4c75-9d46-2b8e5c3f7a19
+
+	/// HRV over alle nachten, ongeacht selectie
+	measure 'HRV alle nachten' = CALCULATE([HRV], ALL(Kalender))
+		formatString: 0
+		displayFolder: Vergelijking
+		lineageTag: 2d7f4e91-8b36-4a52-b1e8-6c9a3d5f8b27
+
+	/// Slaapscore over alle nachten, ongeacht selectie
+	measure 'Slaapscore alle nachten' = CALCULATE([Slaapscore], ALL(Kalender))
+		formatString: 0
+		displayFolder: Vergelijking
+		lineageTag: 6b3a8d47-5e12-4f89-a7c4-9d2f6e4b1c73
 
 	partition Metingen = m
 		mode: import
@@ -20,4 +190,3 @@ table Metingen
 				    #"Kolommen verwijderd"
 
 	annotation PBI_ResultType = Table
-

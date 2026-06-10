@@ -87,10 +87,10 @@ expression 'Voorbeeldbestand transformeren (2)' =
 expression 'Bestand transformeren (2)' =
 		let
 		    Bron = (Parameter2 as binary) => let
-		        Bron = Csv.Document(Parameter2,[Delimiter=",", Columns=43, Encoding=1252, QuoteStyle=QuoteStyle.None]),
-		        #"Headers met verhoogd niveau" = Table.PromoteHeaders(Bron, [PromoteAllScalars=true])
-		    in
-		        #"Headers met verhoogd niveau"
+		    Bron = Csv.Document(Parameter2,[Delimiter=",", Columns=43, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Headers met verhoogd niveau" = Table.PromoteHeaders(Bron, [PromoteAllScalars=true])
+		in
+		    #"Headers met verhoogd niveau"
 		in
 		    Bron
 	mAttributes: [ FunctionQueryBinding = "{""exemplarFormulaName"":""Voorbeeldbestand transformeren (2)""}" ]
@@ -127,10 +127,10 @@ expression 'Voorbeeldbestand transformeren (3)' =
 expression 'Bestand transformeren (3)' =
 		let
 		    Bron = (Parameter3 as binary) => let
-		        Bron = Csv.Document(Parameter3,[Delimiter=",", Columns=43, Encoding=1252, QuoteStyle=QuoteStyle.None]),
-		        #"Headers met verhoogd niveau" = Table.PromoteHeaders(Bron, [PromoteAllScalars=true])
-		    in
-		        #"Headers met verhoogd niveau"
+		    Bron = Csv.Document(Parameter3,[Delimiter=",", Columns=43, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Headers met verhoogd niveau" = Table.PromoteHeaders(Bron, [PromoteAllScalars=true])
+		in
+		    #"Headers met verhoogd niveau"
 		in
 		    Bron
 	mAttributes: [ FunctionQueryBinding = "{""exemplarFormulaName"":""Voorbeeldbestand transformeren (3)""}" ]
@@ -165,10 +165,10 @@ expression 'Voorbeeldbestand transformeren' =
 expression 'Bestand transformeren' =
 		let
 		    Bron = (Parameter1 as binary) => let
-		        Bron = Csv.Document(Parameter1,[Delimiter=",", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
-		        #"Headers met verhoogd niveau" = Table.PromoteHeaders(Bron, [PromoteAllScalars=true])
-		    in
-		        #"Headers met verhoogd niveau"
+		    Bron = Csv.Document(Parameter1,[Delimiter=",", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Headers met verhoogd niveau" = Table.PromoteHeaders(Bron, [PromoteAllScalars=true])
+		in
+		    #"Headers met verhoogd niveau"
 		in
 		    Bron
 	mAttributes: [ FunctionQueryBinding = "{""exemplarFormulaName"":""Voorbeeldbestand transformeren""}" ]
