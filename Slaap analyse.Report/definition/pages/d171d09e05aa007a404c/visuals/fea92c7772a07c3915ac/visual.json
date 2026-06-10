@@ -1,0 +1,132 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "fea92c7772a07c3915ac",
+  "position": {
+    "x": 37,
+    "y": 449,
+    "z": 3,
+    "height": 239,
+    "width": 591,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "columnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Kalender"
+                    }
+                  },
+                  "Property": "Datum"
+                }
+              },
+              "queryRef": "Kalender.Datum",
+              "nativeQueryRef": "Datum",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Metingen"
+                    }
+                  },
+                  "Property": "REM (u)"
+                }
+              },
+              "queryRef": "Metingen.REM (u)",
+              "nativeQueryRef": "REM (u)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Metingen"
+                    }
+                  },
+                  "Property": "Lichte slaap (u)"
+                }
+              },
+              "queryRef": "Metingen.Lichte slaap (u)",
+              "nativeQueryRef": "Lichte slaap (u)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Metingen"
+                    }
+                  },
+                  "Property": "Diepe slaap (u)"
+                }
+              },
+              "queryRef": "Metingen.Diepe slaap (u)",
+              "nativeQueryRef": "Diepe slaap (u)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Metingen"
+                    }
+                  },
+                  "Property": "Wakker (u)"
+                }
+              },
+              "queryRef": "Metingen.Wakker (u)",
+              "nativeQueryRef": "Wakker (u)"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Kalender"
+                  }
+                },
+                "Property": "Datum"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

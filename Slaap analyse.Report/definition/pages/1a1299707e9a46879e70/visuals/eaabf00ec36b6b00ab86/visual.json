@@ -1,0 +1,135 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "eaabf00ec36b6b00ab86",
+  "position": {
+    "x": 36.725863365534792,
+    "y": 197.84578006594549,
+    "z": 1,
+    "height": 239.31046451090415,
+    "width": 591.16792965812454,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Kalender"
+                    }
+                  },
+                  "Property": "Datum"
+                }
+              },
+              "queryRef": "Kalender.Datum",
+              "nativeQueryRef": "Datum",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Metingen"
+                    }
+                  },
+                  "Property": "AHI"
+                }
+              },
+              "queryRef": "Metingen.AHI",
+              "nativeQueryRef": "AHI"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Kalender"
+                  }
+                },
+                "Property": "Datum"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "47c490104e0e6d804d7d",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Metingen"
+              }
+            },
+            "Property": "AHI"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "f6fe8330a608a3081450",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Kalender"
+              }
+            },
+            "Property": "Datum"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

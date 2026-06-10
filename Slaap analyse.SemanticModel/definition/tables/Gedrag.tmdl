@@ -5,27 +5,13 @@ table Gedrag
 	column datum
 		dataType: dateTime
 		isHidden
-		displayFolder: _Verborgen
 		formatString: Long Date
+		displayFolder: _Verborgen
 		lineageTag: e5a36d94-ef2c-474d-8af0-212a742ceffe
 		summarizeBy: none
 		sourceColumn: datum
 
 		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	/// Ontwaakdatum van de nacht die dit gedrag beïnvloedt (= gedragsdag + 1). Relatiekey naar Kalender: gedrag van de avond hoort bij de nacht erna.
-	column Nacht
-		dataType: dateTime
-		isHidden
-		displayFolder: _Verborgen
-		formatString: Long Date
-		lineageTag: 8c5e2d94-7a31-4f68-b9d5-3e6c8f2a7b41
-		summarizeBy: none
-		sourceColumn: Nacht
 
 		annotation SummarizationSetBy = Automatic
 
@@ -50,8 +36,8 @@ table Gedrag
 	column gedrag_id
 		dataType: int64
 		isHidden
-		displayFolder: _Verborgen
 		formatString: 0
+		displayFolder: _Verborgen
 		lineageTag: e9c9857b-4ca2-41f0-937f-5bbbd956299e
 		summarizeBy: sum
 		sourceColumn: gedrag_id
@@ -94,6 +80,20 @@ table Gedrag
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Ontwaakdatum van de nacht die dit gedrag beïnvloedt (= gedragsdag + 1). Relatiekey naar Kalender: gedrag van de avond hoort bij de nacht erna.
+	column Nacht
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		displayFolder: _Verborgen
+		lineageTag: 8c5e2d94-7a31-4f68-b9d5-3e6c8f2a7b41
+		summarizeBy: none
+		sourceColumn: Nacht
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
 	partition Gedrag = m
 		mode: import
 		queryGroup: FACT\Garmin
@@ -114,3 +114,4 @@ table Gedrag
 	annotation PBI_NavigationStepName = Navigatie
 
 	annotation PBI_ResultType = Table
+

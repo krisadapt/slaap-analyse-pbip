@@ -2,6 +2,12 @@
 table Metingen
 	lineageTag: 1dcdc921-5c58-4bac-b5bc-0ddb3c2a7b55
 
+	/// Gemiddelde totale slaapduur per nacht in uren (Garmin, inslapen tot ontwaken)
+	measure Slaapuren = AVERAGE('Slaapdata (G)'[totale_slaap_uur])
+		formatString: 0.0
+		displayFolder: Garmin — Slaap
+		lineageTag: c6d829f0-23be-4162-8677-538cc89be43b
+
 	/// Gemiddelde AHI per nacht (ongewogen): events per uur maskergebruik. Norm: < 5 normaal, 5–15 mild.
 	measure AHI = AVERAGE('OSCAR Daily Events'[AHI])
 		formatString: 0.0
@@ -88,12 +94,6 @@ table Metingen
 				    "Index", "0.0",
 				    "0.0"
 				)
-
-	/// Gemiddelde totale slaapduur per nacht in uren (Garmin, inslapen tot ontwaken)
-	measure Slaapuren = AVERAGE('Slaapdata (G)'[totale_slaap_uur])
-		formatString: 0.0
-		displayFolder: Garmin — Slaap
-		lineageTag: c6d829f0-23be-4162-8677-538cc89be43b
 
 	/// Kortste nacht in de selectie
 	measure 'Slaapuren min' = MIN('Slaapdata (G)'[totale_slaap_uur])
@@ -190,3 +190,4 @@ table Metingen
 				    #"Kolommen verwijderd"
 
 	annotation PBI_ResultType = Table
+

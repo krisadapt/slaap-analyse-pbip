@@ -24,6 +24,19 @@
           }
         }
       }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
     ]
   },
   "resourcePackages": [
@@ -35,6 +48,32 @@
           "name": "CY26SU05",
           "path": "BaseThemes/CY26SU05.json",
           "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "achtergrond_template11755004704447247.png",
+          "path": "achtergrond_template11755004704447247.png",
+          "type": "Image"
+        },
+        {
+          "name": "pagina1_overzicht9922300416432853.png",
+          "path": "pagina1_overzicht9922300416432853.png",
+          "type": "Image"
+        },
+        {
+          "name": "pagina2_nachtdetail6921891707809305.png",
+          "path": "pagina2_nachtdetail6921891707809305.png",
+          "type": "Image"
+        },
+        {
+          "name": "pagina3_gedragstags17082914640892255.svg",
+          "path": "pagina3_gedragstags17082914640892255.svg",
+          "type": "Image"
         }
       ]
     }

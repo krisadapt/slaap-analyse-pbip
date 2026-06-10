@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
-  "name": "d171d09e05aa007a404c",
-  "displayName": "Overzicht",
+  "name": "079985e68e13001a2e17",
+  "displayName": "Nacht detail - Demo",
   "displayOption": "FitToPage",
   "height": 720,
   "width": 1280,
@@ -14,7 +14,7 @@
               "name": {
                 "expr": {
                   "Literal": {
-                    "Value": "'achtergrond_template.png'"
+                    "Value": "'pagina2_nachtdetail.png'"
                   }
                 }
               },
@@ -23,7 +23,7 @@
                   "ResourcePackageItem": {
                     "PackageName": "RegisteredResources",
                     "PackageType": 1,
-                    "ItemName": "achtergrond_template11755004704447247.png"
+                    "ItemName": "pagina2_nachtdetail6921891707809305.png"
                   }
                 }
               },

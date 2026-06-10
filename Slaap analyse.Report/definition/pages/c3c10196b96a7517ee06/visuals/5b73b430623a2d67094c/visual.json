@@ -1,0 +1,151 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "5b73b430623a2d67094c",
+  "position": {
+    "x": 654.33825256818227,
+    "y": 209.94810242829377,
+    "z": 4,
+    "height": 227.4437776306516,
+    "width": 598.35209192063724,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Gedrag"
+                    }
+                  },
+                  "Property": "categorie"
+                }
+              },
+              "queryRef": "Gedrag.categorie",
+              "nativeQueryRef": "categorie",
+              "active": false
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Gedrag"
+                    }
+                  },
+                  "Property": "gedrag"
+                }
+              },
+              "queryRef": "Gedrag.gedrag",
+              "nativeQueryRef": "gedrag",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Gedrag"
+                        }
+                      },
+                      "Property": "gedrag"
+                    }
+                  },
+                  "Function": 5
+                }
+              },
+              "queryRef": "CountNonNull(Gedrag.gedrag)",
+              "nativeQueryRef": "Totaal van gedrag"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Gedrag"
+                      }
+                    },
+                    "Property": "gedrag"
+                  }
+                },
+                "Function": 5
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "fe8934754b1822017652",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Gedrag"
+              }
+            },
+            "Property": "categorie"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "e5591aa66b0156d6e48a",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Gedrag"
+                  }
+                },
+                "Property": "gedrag"
+              }
+            },
+            "Function": 5
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "c20fd6aa8dd2bc86d630",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Gedrag"
+              }
+            },
+            "Property": "gedrag"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}
