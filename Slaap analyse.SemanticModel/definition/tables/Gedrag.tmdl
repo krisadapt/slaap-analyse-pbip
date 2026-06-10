@@ -1,11 +1,11 @@
 table Gedrag
 	lineageTag: fea0d4a2-ea31-4377-9507-5ae8e5eaca8d
 
-	/// Datum key
-	/// 
+	/// Dag waarop het gedrag plaatsvond (zoals gelogd in Garmin)
 	column datum
 		dataType: dateTime
 		isHidden
+		displayFolder: _Verborgen
 		formatString: Long Date
 		lineageTag: e5a36d94-ef2c-474d-8af0-212a742ceffe
 		summarizeBy: none
@@ -17,9 +17,22 @@ table Gedrag
 
 		annotation UnderlyingDateTimeDataType = Date
 
+	/// Ontwaakdatum van de nacht die dit gedrag beïnvloedt (= gedragsdag + 1). Relatiekey naar Kalender: gedrag van de avond hoort bij de nacht erna.
+	column Nacht
+		dataType: dateTime
+		isHidden
+		displayFolder: _Verborgen
+		formatString: Long Date
+		lineageTag: 8c5e2d94-7a31-4f68-b9d5-3e6c8f2a7b41
+		summarizeBy: none
+		sourceColumn: Nacht
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
 	column categorie
 		dataType: string
-		displayFolder: Lifestyle — Classificatie
 		lineageTag: 6140c0c8-4eba-4f22-815c-a43687c57b63
 		summarizeBy: none
 		sourceColumn: categorie
@@ -28,7 +41,6 @@ table Gedrag
 
 	column gedrag
 		dataType: string
-		displayFolder: Lifestyle — Loggingen
 		lineageTag: 920d8659-9db2-4035-80fc-40e74b05ea99
 		summarizeBy: none
 		sourceColumn: gedrag
@@ -38,6 +50,7 @@ table Gedrag
 	column gedrag_id
 		dataType: int64
 		isHidden
+		displayFolder: _Verborgen
 		formatString: 0
 		lineageTag: e9c9857b-4ca2-41f0-937f-5bbbd956299e
 		summarizeBy: sum
@@ -49,7 +62,6 @@ table Gedrag
 
 	column status
 		dataType: string
-		displayFolder: Lifestyle — Loggingen
 		lineageTag: 60c4baae-d29e-435d-bda0-fb30b08f9601
 		summarizeBy: none
 		sourceColumn: status
@@ -58,7 +70,7 @@ table Gedrag
 
 	column slaap_gerelateerd
 		dataType: boolean
-		formatString: """TRUE"";""TRUE"";""FALSE"""		displayFolder: Lifestyle — Classificatie		lineageTag: f067df43-e9e0-42c3-bcdb-b53bb8923f49
+		formatString: """TRUE"";""TRUE"";""FALSE"""
 		lineageTag: ebe74fe0-3adb-469d-babb-a7a5ce1dd1b5
 		summarizeBy: none
 		sourceColumn: slaap_gerelateerd
@@ -67,7 +79,6 @@ table Gedrag
 
 	column subtype
 		dataType: string
-		displayFolder: Lifestyle — Details
 		lineageTag: d7919813-3b9e-45d0-aa8c-1ae4d21f908d
 		summarizeBy: none
 		sourceColumn: subtype
@@ -77,7 +88,6 @@ table Gedrag
 	column aantal
 		dataType: int64
 		formatString: 0
-		displayFolder: Lifestyle — Details
 		lineageTag: 322d4a8f-7b18-47cd-91b0-56ca0f313491
 		summarizeBy: sum
 		sourceColumn: aantal
@@ -93,11 +103,14 @@ table Gedrag
 				    Content = Bron{0}[Content],
 				    #"CSV-bestand geïmporteerd" = Csv.Document(Content,[Delimiter=",", Columns=8, Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Headers met verhoogd niveau" = Table.PromoteHeaders(#"CSV-bestand geïmporteerd", [PromoteAllScalars=true]),
-				    #"Type gewijzigd" = Table.TransformColumnTypes(#"Headers met verhoogd niveau",{{"datum", type date}, {"categorie", type text}, {"gedrag", type text}, {"gedrag_id", Int64.Type}, {"status", type text}, {"slaap_gerelateerd", type logical}, {"subtype", type text}, {"aantal", Int64.Type}})
+				    // aantal staat in de CSV als decimaal met punt (1.0) → eerst en-US naar number, daarna geheel getal
+				    #"Type gewijzigd" = Table.TransformColumnTypes(#"Headers met verhoogd niveau",{{"datum", type date}, {"categorie", type text}, {"gedrag", type text}, {"gedrag_id", Int64.Type}, {"status", type text}, {"slaap_gerelateerd", type logical}, {"subtype", type text}, {"aantal", type number}}, "en-US"),
+				    #"Aantal geheel" = Table.TransformColumnTypes(#"Type gewijzigd",{{"aantal", Int64.Type}}),
+				    // Gedrag van dag X beïnvloedt de nacht met ontwaakdatum X+1 (avondgedrag → nacht erna)
+				    #"Nacht toegevoegd" = Table.AddColumn(#"Aantal geheel", "Nacht", each Date.AddDays([datum], 1), type date)
 				in
-				    #"Type gewijzigd"
+				    #"Nacht toegevoegd"
 
 	annotation PBI_NavigationStepName = Navigatie
 
 	annotation PBI_ResultType = Table
-

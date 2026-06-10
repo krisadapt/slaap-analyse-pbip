@@ -1,5 +1,5 @@
 relationship ec68a8c2-72a7-f494-25fe-0f7b3477691c
-	fromColumn: Gedrag.datum
+	fromColumn: Gedrag.Nacht
 	toColumn: Kalender.Datum
 
 relationship 622fec0b-edee-3b64-8a65-b187aa571265
