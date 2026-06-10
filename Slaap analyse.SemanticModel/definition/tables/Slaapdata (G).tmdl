@@ -238,13 +238,15 @@ table 'Slaapdata (G)'
 				    Content = Bron{1}[Content],
 				    #"CSV-bestand geïmporteerd" = Csv.Document(Content,[Delimiter=",", Columns=24, Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Headers met verhoogd niveau" = Table.PromoteHeaders(#"CSV-bestand geïmporteerd", [PromoteAllScalars=true]),
-				    #"Type gewijzigd" = Table.TransformColumnTypes(#"Headers met verhoogd niveau",{{"datum", type date}, {"slaap_start", type datetime}, {"slaap_einde", type datetime}, {"slaapscore", Int64.Type}, {"slaapscore_kwalificatie", type text}, {"gemiddelde_hartslag_in_slaap", Int64.Type}, {"aantal_ontwakingen", type text}, {"onrustige_momenten", type text}, {"gem_slaapstress", type text}, {"bb_start", type text}, {"bb_einde", type text}, {"bb_laagste", type text}, {"bb_hoogste", type text}, {"bb_verandering", type text}, {"spo2_gem_trend", type text}, {"spo2_laagste_trend", type text}, {"spo2_hoogste_trend", type text}}),
-				    // Lege strings naar null zodat decimale kolommen correct converteren
-				    #"Lege waarden" = Table.ReplaceValue(#"Type gewijzigd", "", null, Replacer.ReplaceValue, {"totale_slaap_uur", "diepe_slaap_uur", "lichte_slaap_uur", "rem_slaap_uur", "wakker_uur", "gemiddelde_ademhaling", "gemiddelde_hrv"}),
-				    // Decimalen met punt (Python-export) → en-US conversie; voorheen Int64 waardoor decimalen verloren gingen
-				    #"Numeriek en-US" = Table.TransformColumnTypes(#"Lege waarden", {{"totale_slaap_uur", type number}, {"diepe_slaap_uur", type number}, {"lichte_slaap_uur", type number}, {"rem_slaap_uur", type number}, {"wakker_uur", type number}, {"gemiddelde_ademhaling", type number}, {"gemiddelde_hrv", type number}}, "en-US")
+				    #"Type gewijzigd" = Table.TransformColumnTypes(#"Headers met verhoogd niveau",{{"datum", type date}, {"slaap_start", type datetime}, {"slaap_einde", type datetime}, {"slaapscore_kwalificatie", type text}, {"aantal_ontwakingen", type text}, {"onrustige_momenten", type text}, {"gem_slaapstress", type text}, {"bb_start", type text}, {"bb_einde", type text}, {"bb_laagste", type text}, {"bb_hoogste", type text}, {"bb_verandering", type text}, {"spo2_gem_trend", type text}, {"spo2_laagste_trend", type text}, {"spo2_hoogste_trend", type text}}),
+				    // Lege strings naar null zodat numerieke conversie niet faalt op ontbrekende waarden
+				    #"Lege waarden" = Table.ReplaceValue(#"Type gewijzigd", "", null, Replacer.ReplaceValue, {"totale_slaap_uur", "diepe_slaap_uur", "lichte_slaap_uur", "rem_slaap_uur", "wakker_uur", "slaapscore", "gemiddelde_ademhaling", "gemiddelde_hartslag_in_slaap", "gemiddelde_hrv"}),
+				    // Python-export gebruikt punt als decimaalteken → en-US conversie
+				    #"Numeriek en-US" = Table.TransformColumnTypes(#"Lege waarden", {{"totale_slaap_uur", type number}, {"diepe_slaap_uur", type number}, {"lichte_slaap_uur", type number}, {"rem_slaap_uur", type number}, {"wakker_uur", type number}, {"gemiddelde_ademhaling", type number}, {"gemiddelde_hrv", type number}, {"slaapscore", type number}, {"gemiddelde_hartslag_in_slaap", type number}}, "en-US"),
+				    // Scores en hartslag zijn gehele getallen
+				    #"Gehele getallen" = Table.TransformColumnTypes(#"Numeriek en-US",{{"slaapscore", Int64.Type}, {"gemiddelde_hartslag_in_slaap", Int64.Type}})
 				in
-				    #"Numeriek en-US"
+				    #"Gehele getallen"
 
 	annotation PBI_NavigationStepName = Navigatie
 
