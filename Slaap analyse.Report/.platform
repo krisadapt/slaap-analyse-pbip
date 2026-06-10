@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Slaap analyse"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "5743f887-eab2-4272-9dae-b406973d722e"
+  }
+}

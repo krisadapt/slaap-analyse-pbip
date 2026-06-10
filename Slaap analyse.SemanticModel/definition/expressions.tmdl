@@ -1,0 +1,228 @@
+expression Parameter2 = #"Voorbeeldbestand (2)" meta [IsParameterQuery=true, BinaryIdentifier=#"Voorbeeldbestand (2)", Type="Binary", IsParameterQueryRequired=true]
+	lineageTag: dc1dd0b5-c96c-4373-a4af-b24a575a64e4
+	queryGroup: 'BRON\Bestand van OSCAR Data Bron (2) transformeren\Helper-query''s'
+
+	annotation PBI_ResultType = Binary
+
+expression Parameter3 = #"Voorbeeldbestand (3)" meta [IsParameterQuery=true, BinaryIdentifier=#"Voorbeeldbestand (3)", Type="Binary", IsParameterQueryRequired=true]
+	lineageTag: 76d1b904-2abc-4f57-8187-23d782c9791c
+	queryGroup: 'BRON\Bestand van OSCAR Summary transformeren\Helper-query''s'
+
+	annotation PBI_ResultType = Binary
+
+expression Parameter1 = Voorbeeldbestand meta [IsParameterQuery=true, BinaryIdentifier=Voorbeeldbestand, Type="Binary", IsParameterQueryRequired=true]
+	lineageTag: 89669cb8-fa7f-445b-a78e-6094d48a0826
+	queryGroup: 'BRON\Bestand van OSCAR Details transformeren\Helper-query''s'
+
+	annotation PBI_ResultType = Binary
+
+expression Sharepoint =
+		let
+		    Bron = SharePoint.Files("https://time2adapt.sharepoint.com/sites/Marketing", [ApiVersion = 15]),
+		    #"Rijen gefilterd" = Table.SelectRows(Bron, each Text.Contains([Folder Path], "18 CPAP Analyse"))
+		in
+		    #"Rijen gefilterd"
+	lineageTag: 1fd8c628-c7e9-4361-a278-661c924735f1
+	queryGroup: BRON
+
+	annotation PBI_NavigationStepName = Navigatie
+
+	annotation PBI_ResultType = Table
+
+expression 'Garmin Bron' =
+		let
+		    Bron = Sharepoint,
+		    #"Rijen gefilterd" = Table.SelectRows(Bron, each Text.Contains([Folder Path], "18 CPAP Analyse")),
+		    #"Rijen gefilterd1" = Table.SelectRows(#"Rijen gefilterd", each Text.Contains([Folder Path], "Garmin")),
+		    #"Andere kolommen verwijderd" = Table.SelectColumns(#"Rijen gefilterd1",{"Content", "Name"}),
+		    #"Ingevoegde tekst tussen scheidingstekens" = Table.AddColumn(#"Andere kolommen verwijderd", "Tekst tussen scheidingstekens", each Text.BetweenDelimiters([Name], "_", ".", 1, 0), type text),
+		    #"Rijen gefilterd2" = Table.SelectRows(#"Ingevoegde tekst tussen scheidingstekens", each ([Tekst tussen scheidingstekens] = "master"))
+		in
+		    #"Rijen gefilterd2"
+	lineageTag: d91898a5-cece-4526-b391-530806cfd96f
+	queryGroup: BRON
+
+	annotation PBI_NavigationStepName = Navigatie
+
+	annotation PBI_ResultType = Table
+
+expression 'OSCAR Data Bron' =
+		let
+		    Bron = Sharepoint,
+		    #"Rijen gefilterd" = Table.SelectRows(Bron, each Text.Contains([Folder Path], "Sessions") or Text.Contains([Folder Path], "Details") or Text.Contains([Folder Path], "Daily")),
+		    #"Ingevoegde tekst tussen scheidingstekens" = Table.AddColumn(#"Rijen gefilterd", "Tekst tussen scheidingstekens", each Text.BetweenDelimiters([Name], "_", "_", 1, 0), type text),
+		    #"Andere kolommen verwijderd" = Table.SelectColumns(#"Ingevoegde tekst tussen scheidingstekens",{"Content", "Name", "Tekst tussen scheidingstekens"})
+		in
+		    #"Andere kolommen verwijderd"
+	lineageTag: da2e8cba-bde3-43e1-8576-c167e2822cf9
+	queryGroup: BRON
+
+	annotation PBI_NavigationStepName = Navigatie
+
+	annotation PBI_ResultType = Table
+
+expression 'Voorbeeldbestand (2)' =
+		let
+		    Bron = #"OSCAR Data Bron",
+		    #"Rijen gefilterd" = Table.SelectRows(Bron, each ([Tekst tussen scheidingstekens] = "Sessions")),
+		    Navigatie1 = #"Rijen gefilterd"{0}[Content]
+		in
+		    Navigatie1
+	lineageTag: 6e9edc25-0c7f-4ef2-96b4-96bf5b813b62
+	queryGroup: 'BRON\Bestand van OSCAR Data Bron (2) transformeren\Helper-query''s'
+
+	annotation PBI_ResultType = Binary
+
+expression 'Voorbeeldbestand transformeren (2)' =
+		let
+		    Bron = Csv.Document(Parameter2,[Delimiter=",", Columns=43, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Headers met verhoogd niveau" = Table.PromoteHeaders(Bron, [PromoteAllScalars=true])
+		in
+		    #"Headers met verhoogd niveau"
+	lineageTag: fb5c5008-3d2a-4c03-b1d2-02f31f4d44b1
+	queryGroup: 'BRON\Bestand van OSCAR Data Bron (2) transformeren'
+
+	annotation PBI_ResultType = Table
+
+expression 'Bestand transformeren (2)' =
+		let
+		    Bron = (Parameter2 as binary) => let
+		    Bron = Csv.Document(Parameter2,[Delimiter=",", Columns=43, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Headers met verhoogd niveau" = Table.PromoteHeaders(Bron, [PromoteAllScalars=true])
+		in
+		    #"Headers met verhoogd niveau"
+		in
+		    Bron
+	mAttributes: [ FunctionQueryBinding = "{""exemplarFormulaName"":""Voorbeeldbestand transformeren (2)""}" ]
+	lineageTag: 0b760490-59fa-4bb6-8e19-62fac7c2f7c8
+	queryGroup: 'BRON\Bestand van OSCAR Data Bron (2) transformeren\Helper-query''s'
+
+	annotation PBI_ResultType = Function
+
+expression 'Voorbeeldbestand (3)' =
+		let
+		    Bron = #"OSCAR Data Bron",
+		    #"Rijen gefilterd" = Table.SelectRows(Bron, each ([Tekst tussen scheidingstekens] = "Summary")),
+		    Navigatie1 = #"Rijen gefilterd"{0}[Content]
+		in
+		    Navigatie1
+	lineageTag: 541b11df-725c-4e15-801a-b025957843ef
+	queryGroup: 'BRON\Bestand van OSCAR Summary transformeren\Helper-query''s'
+
+	annotation PBI_NavigationStepName = Navigatie
+
+	annotation PBI_ResultType = Binary
+
+expression 'Voorbeeldbestand transformeren (3)' =
+		let
+		    Bron = Csv.Document(Parameter3,[Delimiter=",", Columns=43, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Headers met verhoogd niveau" = Table.PromoteHeaders(Bron, [PromoteAllScalars=true])
+		in
+		    #"Headers met verhoogd niveau"
+	lineageTag: fdf367d0-aa01-4212-a879-8602392f1d3b
+	queryGroup: 'BRON\Bestand van OSCAR Summary transformeren'
+
+	annotation PBI_ResultType = Table
+
+expression 'Bestand transformeren (3)' =
+		let
+		    Bron = (Parameter3 as binary) => let
+		    Bron = Csv.Document(Parameter3,[Delimiter=",", Columns=43, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Headers met verhoogd niveau" = Table.PromoteHeaders(Bron, [PromoteAllScalars=true])
+		in
+		    #"Headers met verhoogd niveau"
+		in
+		    Bron
+	mAttributes: [ FunctionQueryBinding = "{""exemplarFormulaName"":""Voorbeeldbestand transformeren (3)""}" ]
+	lineageTag: 576c66ed-c027-46fe-b382-83b3b9a6ce9c
+	queryGroup: 'BRON\Bestand van OSCAR Summary transformeren\Helper-query''s'
+
+	annotation PBI_ResultType = Function
+
+expression Voorbeeldbestand =
+		let
+		    Bron = #"OSCAR Data Bron",
+		    #"Rijen gefilterd" = Table.SelectRows(Bron, each ([Tekst tussen scheidingstekens] = "Details")),
+		    Navigatie1 = #"Rijen gefilterd"{0}[Content]
+		in
+		    Navigatie1
+	lineageTag: 410bff6f-41c8-4765-9dfe-5414c5214b7c
+	queryGroup: 'BRON\Bestand van OSCAR Details transformeren\Helper-query''s'
+
+	annotation PBI_ResultType = Binary
+
+expression 'Voorbeeldbestand transformeren' =
+		let
+		    Bron = Csv.Document(Parameter1,[Delimiter=",", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Headers met verhoogd niveau" = Table.PromoteHeaders(Bron, [PromoteAllScalars=true])
+		in
+		    #"Headers met verhoogd niveau"
+	lineageTag: 50296c3d-2a30-4dfd-b9bb-e71a94593913
+	queryGroup: 'BRON\Bestand van OSCAR Details transformeren'
+
+	annotation PBI_ResultType = Table
+
+expression 'Bestand transformeren' =
+		let
+		    Bron = (Parameter1 as binary) => let
+		    Bron = Csv.Document(Parameter1,[Delimiter=",", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Headers met verhoogd niveau" = Table.PromoteHeaders(Bron, [PromoteAllScalars=true])
+		in
+		    #"Headers met verhoogd niveau"
+		in
+		    Bron
+	mAttributes: [ FunctionQueryBinding = "{""exemplarFormulaName"":""Voorbeeldbestand transformeren""}" ]
+	lineageTag: aed37648-0fbe-41d4-abc4-54fb34e33b8d
+	queryGroup: 'BRON\Bestand van OSCAR Details transformeren\Helper-query''s'
+
+	annotation PBI_ResultType = Function
+
+expression 'Excel Bron' =
+		let
+		    Bron = Sharepoint,
+		    #"Rijen gefilterd" = Table.SelectRows(Bron, each ([Extension] = ".xlsx")),
+		    #"CPAP Analyse xlsx_https://time2adapt sharepoint com/sites/Marketing/Gedeelde documenten/18 CPAP Analyse/Rapporten/" = #"Rijen gefilterd"{[Name="CPAP Analyse.xlsx",#"Folder Path"="https://time2adapt.sharepoint.com/sites/Marketing/Gedeelde documenten/18 CPAP Analyse/Rapporten/"]}[Content],
+		    #"Geïmporteerde Excel-werkmap" = Excel.Workbook(#"CPAP Analyse xlsx_https://time2adapt sharepoint com/sites/Marketing/Gedeelde documenten/18 CPAP Analyse/Rapporten/")
+		in
+		    #"Geïmporteerde Excel-werkmap"
+	lineageTag: c61c71b7-a74c-4298-ba54-7194817d5535
+	queryGroup: BRON
+
+	annotation PBI_NavigationStepName = Navigatie
+
+	annotation PBI_ResultType = Table
+
+expression 'OSCAR Summary' =
+		let
+		    Bron = #"OSCAR Data Bron",
+		    #"Rijen gefilterd" = Table.SelectRows(Bron, each ([Tekst tussen scheidingstekens] = "Summary")),
+		    #"Gefilterde verborgen bestanden2" = Table.SelectRows(#"Rijen gefilterd", each [Attributes]?[Hidden]? <> true),
+		    #"Aangepaste functie aanroepen2" = Table.AddColumn(#"Gefilterde verborgen bestanden2", "Bestand transformeren (3)", each #"Bestand transformeren (3)"([Content])),
+		    #"Andere kolommen verwijderd2" = Table.SelectColumns(#"Aangepaste functie aanroepen2", {"Bestand transformeren (3)"}),
+		    #"Tabelkolom uitgevouwen2" = Table.ExpandTableColumn(#"Andere kolommen verwijderd2", "Bestand transformeren (3)", Table.ColumnNames(#"Bestand transformeren (3)"(#"Voorbeeldbestand (3)"))),
+		    #"Type gewijzigd" = Table.TransformColumnTypes(#"Tabelkolom uitgevouwen2",{{"Date", type date}, {"Session Count", Int64.Type}, {"Start", type datetime}, {"End", type datetime}, {"Total Time", type time}}),
+		    #"Type gewijzigd1" = Table.TransformColumnTypes(#"Type gewijzigd",{{"Total Time", type number}}),
+		    #"Vermenigvuldigde kolom" = Table.TransformColumns(#"Type gewijzigd1", {{"Total Time", each _ * 24, type number}}),
+		    #"Waarde vervangen" = Table.ReplaceValue(#"Vermenigvuldigde kolom",".",",",Replacer.ReplaceText,{"AHI"}),
+		    #"Type gewijzigd2" = Table.TransformColumnTypes(#"Waarde vervangen",{{"AHI", type number}})
+		in
+		    #"Type gewijzigd2"
+	lineageTag: d5d17465-5222-4e5a-bc50-e9a24ae0cdd1
+	queryGroup: BRON
+
+	annotation PBI_NavigationStepName = Navigatie
+
+	annotation PBI_ResultType = Table
+
+expression 'OSCAR Events (2)' =
+		let
+		    Bron = #"Excel Bron"
+		in
+		    Bron
+	lineageTag: f676b8db-86a2-4234-85bb-b30b2d1bdee4
+	queryGroup: DIM
+
+	annotation PBI_NavigationStepName = Navigatie
+
+	annotation PBI_ResultType = Table
+

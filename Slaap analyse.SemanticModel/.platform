@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Slaap analyse"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "5f379219-69c5-400b-b8f9-8bc1d4c9dd2f"
+  }
+}

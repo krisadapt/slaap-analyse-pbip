@@ -1,0 +1,70 @@
+model Model
+	culture: nl-NL
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: nl-NL
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup BRON
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup FACT
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup FACT\Garmin
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup FACT\OSCAR
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup 'BRON\Bestand van OSCAR Data Bron (2) transformeren'
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup 'BRON\Bestand van OSCAR Data Bron (2) transformeren\Helper-query''s'
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup 'BRON\Bestand van OSCAR Summary transformeren'
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup 'BRON\Bestand van OSCAR Summary transformeren\Helper-query''s'
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup 'BRON\Bestand van OSCAR Details transformeren'
+
+	annotation PBI_QueryGroupOrder = 2
+
+queryGroup 'BRON\Bestand van OSCAR Details transformeren\Helper-query''s'
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup DIM
+
+	annotation PBI_QueryGroupOrder = 10
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_ProTooling = ["DevMode","TMDL-Extension","TMDLView_Desktop"]
+
+annotation PBI_QueryOrder = ["Slaapdata (G)","Gedrag","Sharepoint","Garmin Bron","OSCAR Data Bron","OSCAR Sessions","OSCAR Details","Voorbeeldbestand (2)","Parameter2","Voorbeeldbestand transformeren (2)","Bestand transformeren (2)","Voorbeeldbestand (3)","Parameter3","Voorbeeldbestand transformeren (3)","Bestand transformeren (3)","Voorbeeldbestand","Parameter1","Voorbeeldbestand transformeren","Bestand transformeren","OSCAR Events","Kalender","Excel Bron","OSCAR Summary","OSCAR Daily Events","OSCAR Daily","OSCAR Events (2)","Metingen"]
+
+ref table 'Slaapdata (G)'
+ref table Gedrag
+ref table 'OSCAR Sessions'
+ref table 'OSCAR Details'
+ref table 'OSCAR Events'
+ref table Kalender
+ref table 'OSCAR Daily Events'
+ref table 'OSCAR Daily'
+ref table Metingen
+
+ref cultureInfo nl-NL
+

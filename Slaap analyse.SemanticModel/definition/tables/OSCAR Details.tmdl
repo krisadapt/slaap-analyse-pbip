@@ -1,0 +1,62 @@
+table 'OSCAR Details'
+	lineageTag: 3fe425e8-6c35-4f09-a7eb-911851bbf5ce
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 9c4c6b91-bd9d-45db-a1dc-25876eee4838
+		summarizeBy: none
+		sourceColumn: Date
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Session
+		dataType: string
+		lineageTag: d04f7439-8f52-492e-b072-db84c028243b
+		summarizeBy: none
+		sourceColumn: Session
+
+		annotation SummarizationSetBy = Automatic
+
+	column Event
+		dataType: string
+		lineageTag: f0a5f124-a1ea-45f2-aa08-c11f3f65d1bf
+		summarizeBy: none
+		sourceColumn: Event
+
+		annotation SummarizationSetBy = Automatic
+
+	column Data/Duration
+		dataType: double
+		lineageTag: 20ed3311-d281-45dd-b9e8-cd399a20ca61
+		summarizeBy: sum
+		sourceColumn: Data/Duration
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'OSCAR Details' = m
+		mode: import
+		queryGroup: FACT\OSCAR
+		source =
+				let
+				    Bron = #"OSCAR Data Bron",
+				    #"Rijen gefilterd" = Table.SelectRows(Bron, each ([Tekst tussen scheidingstekens] = "Details")),
+				    #"Gefilterde verborgen bestanden1" = Table.SelectRows(#"Rijen gefilterd", each [Attributes]?[Hidden]? <> true),
+				    #"Aangepaste functie aanroepen1" = Table.AddColumn(#"Gefilterde verborgen bestanden1", "Bestand transformeren", each #"Bestand transformeren"([Content])),
+				    #"Andere kolommen verwijderd1" = Table.SelectColumns(#"Aangepaste functie aanroepen1", {"Bestand transformeren"}),
+				    #"Tabelkolom uitgevouwen1" = Table.ExpandTableColumn(#"Andere kolommen verwijderd1", "Bestand transformeren", Table.ColumnNames(#"Bestand transformeren"(Voorbeeldbestand))),
+				    #"Type gewijzigd" = Table.TransformColumnTypes(#"Tabelkolom uitgevouwen1",{{"DateTime", type datetime}, {"Session", type text}, {"Event", type text}, {"Data/Duration", type number}}),
+				    #"Namen van kolommen gewijzigd" = Table.RenameColumns(#"Type gewijzigd",{{"DateTime", "Date"}})
+				in
+				    #"Namen van kolommen gewijzigd"
+
+	annotation PBI_NavigationStepName = Navigatie
+
+	annotation PBI_ResultType = Table
+

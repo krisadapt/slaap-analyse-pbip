@@ -1,0 +1,82 @@
+table 'OSCAR Daily'
+	lineageTag: ad488348-ef13-49b9-a95c-229fa065ad89
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		displayFolder: _Identifiers
+		lineageTag: 103cbb82-072f-4795-9b5d-46d76b684f28
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Event
+		dataType: string
+		displayFolder: CPAP — Events
+		lineageTag: e9594534-0c2b-451b-9fdf-9064256dec93
+		summarizeBy: none
+		sourceColumn: Event
+
+		annotation SummarizationSetBy = Automatic
+
+	column Waarde
+		dataType: double
+		displayFolder: CPAP — Waarden
+		lineageTag: eb2835a4-0a65-4bc9-8929-7b60746ec15b
+		summarizeBy: sum
+		sourceColumn: Waarde
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Metric
+		dataType: string
+		displayFolder: CPAP — Classificatie
+		lineageTag: 12dc225b-359a-46ee-9514-cb135d940784
+		summarizeBy: none
+		sourceColumn: Metric
+
+		annotation SummarizationSetBy = Automatic
+
+	column Type
+		dataType: string
+		displayFolder: CPAP — Classificatie
+		lineageTag: 28ecff1b-cb08-43d7-ab6b-69b6cd8bd338
+		summarizeBy: none
+		sourceColumn: Type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'OSCAR Daily' = m
+		mode: import
+		queryGroup: FACT\OSCAR
+		source =
+				let
+				    Bron = #"OSCAR Summary",
+				    #"Kolommen verwijderd" = Table.RemoveColumns(Bron,{"Session Count", "Start", "End", "Total Time"}),
+				    #"Type gewijzigd2" = Table.TransformColumnTypes(#"Kolommen verwijderd",{{"CA Count", type text}, {"A Count", type text}, {"OA Count", type text}, {"H Count", type text}, {"UA Count", type text}, {"VS Count", type text}, {"VS2 Count", type text}, {"RE Count", type text}, {"FL Count", type text}, {"SA Count", type text}, {"NR Count", type text}, {"EP Count", type text}, {"LF Count", type text}, {"UF1 Count", type text}, {"UF2 Count", type text}, {"PP Count", type text}, {"Median Pressure", type text}, {"Median Pressure Set", type text}, {"Median IPAP", type text}, {"Median IPAP Set", type text}, {"Median EPAP", type text}, {"Median EPAP Set", type text}, {"Median Flow Limit.", type text}, {"95% Pressure", type text}, {"95% Pressure Set", type text}, {"95% IPAP", type text}, {"95% IPAP Set", type text}, {"95% EPAP", type text}, {"95% EPAP Set", type text}, {"95% Flow Limit.", type text}, {"99.5% Pressure", type text}, {"99.5% Pressure Set", type text}, {"99.5% IPAP", type text}, {"99.5% IPAP Set", type text}, {"99.5% EPAP", type text}, {"99.5% EPAP Set", type text}, {"99.5% Flow Limit.", type text}}),
+				    #"Waarde vervangen6" = Table.ReplaceValue(#"Type gewijzigd2",".",",",Replacer.ReplaceText,{"CA Count", "A Count", "OA Count", "H Count", "UA Count", "VS Count", "VS2 Count", "RE Count", "FL Count", "SA Count", "NR Count", "EP Count", "LF Count", "UF1 Count", "UF2 Count", "PP Count", "Median Pressure", "Median Pressure Set", "Median IPAP", "Median IPAP Set", "Median EPAP", "Median EPAP Set", "Median Flow Limit.", "95% Pressure", "95% Pressure Set", "95% IPAP", "95% IPAP Set", "95% EPAP", "95% EPAP Set", "95% Flow Limit.", "99.5% Pressure", "99.5% Pressure Set", "99.5% IPAP", "99.5% IPAP Set", "99.5% EPAP", "99.5% EPAP Set", "99.5% Flow Limit."}),
+				    #"Draaitabel voor andere kolommen opgeheven" = Table.UnpivotOtherColumns(#"Waarde vervangen6", {"Date"}, "Event", "Waarde"),
+				    #"Voorwaardelijke kolom toegevoegd" = Table.AddColumn(#"Draaitabel voor andere kolommen opgeheven", "Metic", each if Text.Contains([Event], "Count") then "Count" else if Text.Contains([Event], "Median") then "Median" else if Text.Contains([Event], "99.5%") then "99,5%" else if Text.Contains([Event], "95%") then "95%" else "Index"),
+				    #"Voorwaardelijke kolom toegevoegd1" = Table.AddColumn(#"Voorwaardelijke kolom toegevoegd", "Type", each if Text.Contains([Event], "Set") then "Setpunt" else "Metric"),
+				    #"Type gewijzigd" = Table.TransformColumnTypes(#"Voorwaardelijke kolom toegevoegd1",{{"Waarde", type number}, {"Type", type text}, {"Metic", type text}}),
+				    #"Waarde vervangen" = Table.ReplaceValue(#"Type gewijzigd"," Count","",Replacer.ReplaceText,{"Event"}),
+				    #"Waarde vervangen1" = Table.ReplaceValue(#"Waarde vervangen","Median ","",Replacer.ReplaceText,{"Event"}),
+				    #"Waarde vervangen2" = Table.ReplaceValue(#"Waarde vervangen1","99.5% ","",Replacer.ReplaceText,{"Event"}),
+				    #"Waarde vervangen3" = Table.ReplaceValue(#"Waarde vervangen2","95% ","",Replacer.ReplaceText,{"Event"}),
+				    #"Waarde vervangen4" = Table.ReplaceValue(#"Waarde vervangen3",".","",Replacer.ReplaceText,{"Event"}),
+				    #"Waarde vervangen5" = Table.ReplaceValue(#"Waarde vervangen4"," Set","",Replacer.ReplaceText,{"Event"}),
+				    #"Namen van kolommen gewijzigd" = Table.RenameColumns(#"Waarde vervangen5",{{"Metic", "Metric"}}),
+				    // Datumcorrectie: OSCAR Date + 1 dag = ontwaakdatum (= Garmin datum)
+				    #"Ontwaakdatum" = Table.TransformColumns(#"Namen van kolommen gewijzigd", {{"Date", each Date.AddDays(_, 1), type date}})
+				in
+				    #"Ontwaakdatum"
+
+	annotation PBI_NavigationStepName = Navigatie
+
+	annotation PBI_ResultType = Table
+

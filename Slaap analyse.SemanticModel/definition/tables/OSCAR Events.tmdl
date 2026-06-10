@@ -1,0 +1,73 @@
+table 'OSCAR Events'
+	lineageTag: 0ce6ee5a-36e1-4ec8-b171-b6d1e4b1ea66
+
+	column Code
+		dataType: string
+		lineageTag: 2e969418-ad4c-4179-8696-eda13027686d
+		summarizeBy: none
+		sourceColumn: Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nederlandse naam'
+		dataType: string
+		lineageTag: c84fb630-6eff-4ed8-b569-8e8ed4203fd1
+		summarizeBy: none
+		sourceColumn: Nederlandse naam
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Engelse naam'
+		dataType: string
+		lineageTag: c523ae3d-83d5-4c4a-9659-6114db263013
+		summarizeBy: none
+		sourceColumn: Engelse naam
+
+		annotation SummarizationSetBy = Automatic
+
+	column Categorie
+		dataType: string
+		lineageTag: 9538b01a-6984-4ea9-b6ca-f2554b99390b
+		summarizeBy: none
+		sourceColumn: Categorie
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Telt mee in AHI'
+		dataType: string
+		lineageTag: e5de1577-d9e5-4cb5-9bf7-228ca188a7de
+		summarizeBy: none
+		sourceColumn: Telt mee in AHI
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Klinische impact'
+		dataType: string
+		lineageTag: 881f2908-50d1-451f-8829-cf20eae3803b
+		summarizeBy: none
+		sourceColumn: Klinische impact
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Reageert op hogere druk'
+		dataType: string
+		lineageTag: c395fb74-25d4-4f1b-9f67-0352432fca1b
+		summarizeBy: none
+		sourceColumn: Reageert op hogere druk
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'OSCAR Events' = m
+		mode: import
+		queryGroup: DIM
+		source =
+				let
+				    Bron = #"Excel Bron",
+				    tbl_gebeurtenistype_Table = Bron{[Item="tbl_gebeurtenistype",Kind="Table"]}[Data]
+				in
+				    tbl_gebeurtenistype_Table
+
+	annotation PBI_NavigationStepName = Navigatie
+
+	annotation PBI_ResultType = Table
+

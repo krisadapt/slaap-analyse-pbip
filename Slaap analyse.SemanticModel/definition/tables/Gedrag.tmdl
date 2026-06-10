@@ -1,0 +1,105 @@
+table Gedrag
+	lineageTag: fea0d4a2-ea31-4377-9507-5ae8e5eaca8d
+
+	/// Datum key
+	/// 
+	column datum
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: e5a36d94-ef2c-474d-8af0-212a742ceffe
+		summarizeBy: none
+		sourceColumn: datum
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column categorie
+		dataType: string
+		displayFolder: Lifestyle — Classificatie
+		lineageTag: 6140c0c8-4eba-4f22-815c-a43687c57b63
+		summarizeBy: none
+		sourceColumn: categorie
+
+		annotation SummarizationSetBy = Automatic
+
+	column gedrag
+		dataType: string
+		displayFolder: Lifestyle — Loggingen
+		lineageTag: 920d8659-9db2-4035-80fc-40e74b05ea99
+		summarizeBy: none
+		sourceColumn: gedrag
+
+		annotation SummarizationSetBy = Automatic
+
+	column gedrag_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e9c9857b-4ca2-41f0-937f-5bbbd956299e
+		summarizeBy: sum
+		sourceColumn: gedrag_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		displayFolder: Lifestyle — Loggingen
+		lineageTag: 60c4baae-d29e-435d-bda0-fb30b08f9601
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column slaap_gerelateerd
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""		displayFolder: Lifestyle — Classificatie		lineageTag: f067df43-e9e0-42c3-bcdb-b53bb8923f49
+		lineageTag: ebe74fe0-3adb-469d-babb-a7a5ce1dd1b5
+		summarizeBy: none
+		sourceColumn: slaap_gerelateerd
+
+		annotation SummarizationSetBy = Automatic
+
+	column subtype
+		dataType: string
+		displayFolder: Lifestyle — Details
+		lineageTag: d7919813-3b9e-45d0-aa8c-1ae4d21f908d
+		summarizeBy: none
+		sourceColumn: subtype
+
+		annotation SummarizationSetBy = Automatic
+
+	column aantal
+		dataType: int64
+		formatString: 0
+		displayFolder: Lifestyle — Details
+		lineageTag: 322d4a8f-7b18-47cd-91b0-56ca0f313491
+		summarizeBy: sum
+		sourceColumn: aantal
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Gedrag = m
+		mode: import
+		queryGroup: FACT\Garmin
+		source =
+				let
+				    Bron = #"Garmin Bron",
+				    Content = Bron{0}[Content],
+				    #"CSV-bestand geïmporteerd" = Csv.Document(Content,[Delimiter=",", Columns=8, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Headers met verhoogd niveau" = Table.PromoteHeaders(#"CSV-bestand geïmporteerd", [PromoteAllScalars=true]),
+				    #"Type gewijzigd" = Table.TransformColumnTypes(#"Headers met verhoogd niveau",{{"datum", type date}, {"categorie", type text}, {"gedrag", type text}, {"gedrag_id", Int64.Type}, {"status", type text}, {"slaap_gerelateerd", type logical}, {"subtype", type text}, {"aantal", Int64.Type}})
+				in
+				    #"Type gewijzigd"
+
+	changedProperty = Name
+
+	annotation PBI_NavigationStepName = Navigatie
+
+	annotation PBI_ResultType = Table
+

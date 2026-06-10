@@ -1,0 +1,414 @@
+table 'OSCAR Sessions'
+	lineageTag: b3b48c4b-0391-4188-a689-34922bcc902d
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 17a5a9f8-e661-4ec3-b0ba-a6a7913da175
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Session
+		dataType: int64
+		formatString: 0
+		lineageTag: 00263f49-a4f3-409d-a296-0387ca78b7e8
+		summarizeBy: sum
+		sourceColumn: Session
+
+		annotation SummarizationSetBy = Automatic
+
+	column Start
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: bd66a2a9-5e8d-49d8-a31a-a36ac86ecb76
+		summarizeBy: none
+		sourceColumn: Start
+
+		annotation SummarizationSetBy = Automatic
+
+	column End
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 414b3258-e5d8-4043-9bf4-c0fb6728b466
+		summarizeBy: none
+		sourceColumn: End
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Time'
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: fbd74549-c977-48b0-80c3-d7f50d23b5ff
+		summarizeBy: none
+		sourceColumn: Total Time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column AHI
+		dataType: string
+		lineageTag: 4e046264-0f4d-4506-8fea-a794d71a8193
+		summarizeBy: none
+		sourceColumn: AHI
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'CA Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: d7e12d60-2d81-46bd-9f84-cfd0151c517a
+		summarizeBy: sum
+		sourceColumn: CA Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'A Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: b3121124-e937-4614-be21-384ac8ea33a8
+		summarizeBy: sum
+		sourceColumn: A Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'OA Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: 7249a18f-fa82-4647-8ef7-17084c194dc8
+		summarizeBy: sum
+		sourceColumn: OA Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'H Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: b14ce111-ef23-4404-a6ee-e0f7aab20e06
+		summarizeBy: sum
+		sourceColumn: H Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'UA Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: 7f5dad4e-f8c9-416e-b9c9-0bb15e134585
+		summarizeBy: sum
+		sourceColumn: UA Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'VS Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: 43308d55-2b53-4460-8347-5859fde01a17
+		summarizeBy: sum
+		sourceColumn: VS Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'VS2 Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: ff94403c-2ce0-452a-84e3-3c04692a4d7f
+		summarizeBy: sum
+		sourceColumn: VS2 Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'RE Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: 94fb5f81-e1bb-4480-8811-8747061b65f0
+		summarizeBy: sum
+		sourceColumn: RE Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'FL Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: 01851d79-ce03-45dc-92e4-212fb6606632
+		summarizeBy: sum
+		sourceColumn: FL Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SA Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: a6122ccd-c4df-4590-9d0b-45debf293dee
+		summarizeBy: sum
+		sourceColumn: SA Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'NR Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: f0fddd8b-42b4-4516-aa0b-1673b13eec3b
+		summarizeBy: sum
+		sourceColumn: NR Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'EP Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: c5b336c0-0c16-48c4-8815-d305401c746b
+		summarizeBy: sum
+		sourceColumn: EP Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'LF Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9757ba25-971f-445a-b981-8f8100094e5d
+		summarizeBy: sum
+		sourceColumn: LF Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'UF1 Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1bfab5e8-e289-4008-a586-322639ac43df
+		summarizeBy: sum
+		sourceColumn: UF1 Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'UF2 Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: cabb38f1-f8c6-4fa8-bdd1-472b60bad12f
+		summarizeBy: sum
+		sourceColumn: UF2 Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PP Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: 94a881ef-a5f5-47b5-acb6-efa4f0fed0db
+		summarizeBy: sum
+		sourceColumn: PP Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Median Pressure'
+		dataType: int64
+		formatString: 0
+		lineageTag: cb9bfaf4-ace2-4805-ad2d-e25d99e1ca2e
+		summarizeBy: sum
+		sourceColumn: Median Pressure
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Median Pressure Set'
+		dataType: int64
+		formatString: 0
+		lineageTag: 09e7e5c5-c171-43b2-accd-486cb08d948e
+		summarizeBy: sum
+		sourceColumn: Median Pressure Set
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Median IPAP'
+		dataType: int64
+		formatString: 0
+		lineageTag: 6baa8d29-91b4-4bb5-b77f-d885781eaccc
+		summarizeBy: sum
+		sourceColumn: Median IPAP
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Median IPAP Set'
+		dataType: int64
+		formatString: 0
+		lineageTag: a81f645c-83de-4eb9-a6f8-96ab91e5cbf7
+		summarizeBy: sum
+		sourceColumn: Median IPAP Set
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Median EPAP'
+		dataType: int64
+		formatString: 0
+		lineageTag: 6bb83da5-37e6-49fe-a884-897a3d4f7b4b
+		summarizeBy: sum
+		sourceColumn: Median EPAP
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Median EPAP Set'
+		dataType: int64
+		formatString: 0
+		lineageTag: 25a923d0-2f2d-41ce-b843-ced43a2698ac
+		summarizeBy: sum
+		sourceColumn: Median EPAP Set
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Median Flow Limit.'
+		dataType: int64
+		formatString: 0
+		lineageTag: 918cf15c-76b5-4c58-bf7f-cbfd46678750
+		summarizeBy: sum
+		sourceColumn: Median Flow Limit.
+
+		annotation SummarizationSetBy = Automatic
+
+	column '95% Pressure'
+		dataType: int64
+		formatString: 0
+		lineageTag: 08afd422-6c9c-4365-b169-7dea5ee27a5b
+		summarizeBy: sum
+		sourceColumn: 95% Pressure
+
+		annotation SummarizationSetBy = Automatic
+
+	column '95% Pressure Set'
+		dataType: int64
+		formatString: 0
+		lineageTag: 71dafcb0-d719-4c97-b012-5bb67cbe6ba0
+		summarizeBy: sum
+		sourceColumn: 95% Pressure Set
+
+		annotation SummarizationSetBy = Automatic
+
+	column '95% IPAP'
+		dataType: int64
+		formatString: 0
+		lineageTag: 5aa13999-7d96-450b-b03b-51cadf9056e3
+		summarizeBy: sum
+		sourceColumn: 95% IPAP
+
+		annotation SummarizationSetBy = Automatic
+
+	column '95% IPAP Set'
+		dataType: int64
+		formatString: 0
+		lineageTag: 77a2c873-f12e-4c66-abad-5bcabe995908
+		summarizeBy: sum
+		sourceColumn: 95% IPAP Set
+
+		annotation SummarizationSetBy = Automatic
+
+	column '95% EPAP'
+		dataType: int64
+		formatString: 0
+		lineageTag: ddb20467-9bea-457c-88cc-e305ca38c378
+		summarizeBy: sum
+		sourceColumn: 95% EPAP
+
+		annotation SummarizationSetBy = Automatic
+
+	column '95% EPAP Set'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1a0a87da-d6a3-423c-9671-546c537159ef
+		summarizeBy: sum
+		sourceColumn: 95% EPAP Set
+
+		annotation SummarizationSetBy = Automatic
+
+	column '95% Flow Limit.'
+		dataType: int64
+		formatString: 0
+		lineageTag: 2137390f-0037-4cf2-be0d-ae6040b66c04
+		summarizeBy: sum
+		sourceColumn: 95% Flow Limit.
+
+		annotation SummarizationSetBy = Automatic
+
+	column '99.5% Pressure'
+		dataType: int64
+		formatString: 0
+		lineageTag: 89658016-9559-41a6-bd17-37b0eb16bee5
+		summarizeBy: sum
+		sourceColumn: 99.5% Pressure
+
+		annotation SummarizationSetBy = Automatic
+
+	column '99.5% Pressure Set'
+		dataType: int64
+		formatString: 0
+		lineageTag: c40a4712-ec97-4f75-a43c-549b4c3d3910
+		summarizeBy: sum
+		sourceColumn: 99.5% Pressure Set
+
+		annotation SummarizationSetBy = Automatic
+
+	column '99.5% IPAP'
+		dataType: int64
+		formatString: 0
+		lineageTag: c2ff7e81-f3c7-4afe-8870-8968b0f47aef
+		summarizeBy: sum
+		sourceColumn: 99.5% IPAP
+
+		annotation SummarizationSetBy = Automatic
+
+	column '99.5% IPAP Set'
+		dataType: int64
+		formatString: 0
+		lineageTag: ce893715-b099-41c6-b853-5c845843bbac
+		summarizeBy: sum
+		sourceColumn: 99.5% IPAP Set
+
+		annotation SummarizationSetBy = Automatic
+
+	column '99.5% EPAP'
+		dataType: int64
+		formatString: 0
+		lineageTag: 04f6654e-c2f8-46c5-b352-4951e3494b78
+		summarizeBy: sum
+		sourceColumn: 99.5% EPAP
+
+		annotation SummarizationSetBy = Automatic
+
+	column '99.5% EPAP Set'
+		dataType: int64
+		formatString: 0
+		lineageTag: ed855fb2-eaf9-4044-90e3-aebb94d47386
+		summarizeBy: sum
+		sourceColumn: 99.5% EPAP Set
+
+		annotation SummarizationSetBy = Automatic
+
+	column '99.5% Flow Limit.'
+		dataType: int64
+		formatString: 0
+		lineageTag: feb26545-3459-4fcc-bee8-24661a6838d3
+		summarizeBy: sum
+		sourceColumn: 99.5% Flow Limit.
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'OSCAR Sessions' = m
+		mode: import
+		queryGroup: FACT\OSCAR
+		source =
+				let
+				    Bron = #"OSCAR Data Bron",
+				    #"Rijen gefilterd" = Table.SelectRows(Bron, each ([Tekst tussen scheidingstekens] = "Sessions")),
+				    #"Gefilterde verborgen bestanden1" = Table.SelectRows(#"Rijen gefilterd", each [Attributes]?[Hidden]? <> true),
+				    #"Aangepaste functie aanroepen1" = Table.AddColumn(#"Gefilterde verborgen bestanden1", "Bestand transformeren (2)", each #"Bestand transformeren (2)"([Content])),
+				    #"Andere kolommen verwijderd1" = Table.SelectColumns(#"Aangepaste functie aanroepen1", {"Bestand transformeren (2)"}),
+				    #"Tabelkolom uitgevouwen1" = Table.ExpandTableColumn(#"Andere kolommen verwijderd1", "Bestand transformeren (2)", Table.ColumnNames(#"Bestand transformeren (2)"(#"Voorbeeldbestand (2)"))),
+				    #"Type gewijzigd" = Table.TransformColumnTypes(#"Tabelkolom uitgevouwen1",{{"Date", type date}, {"Session", Int64.Type}, {"Start", type datetime}, {"End", type datetime}, {"Total Time", type time}, {"AHI", type text}, {"CA Count", Int64.Type}, {"A Count", Int64.Type}, {"OA Count", Int64.Type}, {"H Count", Int64.Type}, {"UA Count", Int64.Type}, {"VS Count", Int64.Type}, {"VS2 Count", Int64.Type}, {"RE Count", Int64.Type}, {"FL Count", Int64.Type}, {"SA Count", Int64.Type}, {"NR Count", Int64.Type}, {"EP Count", Int64.Type}, {"LF Count", Int64.Type}, {"UF1 Count", Int64.Type}, {"UF2 Count", Int64.Type}, {"PP Count", Int64.Type}, {"Median Pressure", Int64.Type}, {"Median Pressure Set", Int64.Type}, {"Median IPAP", Int64.Type}, {"Median IPAP Set", Int64.Type}, {"Median EPAP", Int64.Type}, {"Median EPAP Set", Int64.Type}, {"Median Flow Limit.", Int64.Type}, {"95% Pressure", Int64.Type}, {"95% Pressure Set", Int64.Type}, {"95% IPAP", Int64.Type}, {"95% IPAP Set", Int64.Type}, {"95% EPAP", Int64.Type}, {"95% EPAP Set", Int64.Type}, {"95% Flow Limit.", Int64.Type}, {"99.5% Pressure", Int64.Type}, {"99.5% Pressure Set", Int64.Type}, {"99.5% IPAP", Int64.Type}, {"99.5% IPAP Set", Int64.Type}, {"99.5% EPAP", Int64.Type}, {"99.5% EPAP Set", Int64.Type}, {"99.5% Flow Limit.", Int64.Type}}),
+				    // Datumcorrectie: OSCAR Date + 1 dag = ontwaakdatum (= Garmin datum)
+				    #"Ontwaakdatum" = Table.TransformColumns(#"Type gewijzigd", {{"Date", each Date.AddDays(_, 1), type date}})
+				in
+				    #"Ontwaakdatum"
+
+	annotation PBI_NavigationStepName = Navigatie
+
+	annotation PBI_ResultType = Table
+

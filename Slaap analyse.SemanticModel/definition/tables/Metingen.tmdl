@@ -1,0 +1,23 @@
+/// Container voor metingen.
+table Metingen
+	lineageTag: 1dcdc921-5c58-4bac-b5bc-0ddb3c2a7b55
+
+	/// Gemiddelde totale slaapperiode in uren
+	/// 
+	measure 'Totale Slaapuur Gemiddelde' = AVERAGE('Slaapdata (G)'[totale_slaap_uur])
+		formatString: 0.0
+		displayFolder: Garmin — Slaapduur
+		lineageTag: c6d829f0-23be-4162-8677-538cc89be43b
+
+	partition Metingen = m
+		mode: import
+		source =
+				let
+				    Bron = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Kolom 1" = _t]),
+				    #"Type gewijzigd" = Table.TransformColumnTypes(Bron,{{"Kolom 1", type text}}),
+				    #"Kolommen verwijderd" = Table.RemoveColumns(#"Type gewijzigd",{"Kolom 1"})
+				in
+				    #"Kolommen verwijderd"
+
+	annotation PBI_ResultType = Table
+

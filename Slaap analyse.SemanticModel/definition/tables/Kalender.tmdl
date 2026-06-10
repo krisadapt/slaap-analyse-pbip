@@ -1,0 +1,140 @@
+table Kalender
+	lineageTag: 2749c7ac-d146-4c9f-8226-a52cdbac9ecf
+	dataCategory: Time
+
+	column Datum
+		dataType: dateTime
+		isKey
+		formatString: Short Date
+		lineageTag: 2089bf3c-4ea8-4a4d-8732-f8d2ff096bac
+		summarizeBy: none
+		sourceColumn: Datum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Jaar
+		dataType: int64
+		lineageTag: e405ac0e-2c34-4b7a-bb63-ea9a9a5f53ec
+		summarizeBy: sum
+		sourceColumn: Jaar
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Kwartaal
+		dataType: string
+		lineageTag: e27791ca-f8a7-4e4e-88b4-a3764db26649
+		summarizeBy: none
+		sourceColumn: Kwartaal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Maandnummer
+		dataType: double
+		lineageTag: 1471454a-25a2-41cf-8c4e-38521f967b0b
+		summarizeBy: sum
+		sourceColumn: Maandnummer
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Maandnaam
+		dataType: string
+		lineageTag: 7272a178-17a4-4147-ab5e-d5e90247c8b7
+		summarizeBy: none
+		sourceColumn: Maandnaam
+
+		annotation SummarizationSetBy = Automatic
+
+	column JaarMaand
+		dataType: string
+		lineageTag: 490fc87f-c60f-47a1-b258-941ff09e1734
+		summarizeBy: none
+		sourceColumn: JaarMaand
+
+		annotation SummarizationSetBy = Automatic
+
+	column Weeknummer
+		dataType: double
+		lineageTag: acdd3312-778c-4f77-bc20-756ab36088b1
+		summarizeBy: sum
+		sourceColumn: Weeknummer
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column JaarWeek
+		dataType: string
+		lineageTag: 73a9dd87-076b-4d8d-85f4-1211ea90fd0a
+		summarizeBy: none
+		sourceColumn: JaarWeek
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dag
+		dataType: double
+		lineageTag: fbdb4648-7e45-4b36-8485-b55a58b41d4b
+		summarizeBy: sum
+		sourceColumn: Dag
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Weekdag
+		dataType: double
+		lineageTag: d9ee4f1a-7d1e-4a53-a872-bc00a378027d
+		summarizeBy: sum
+		sourceColumn: Weekdag
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Weekdagnaam
+		dataType: string
+		lineageTag: 41f59272-8019-4922-ada9-18526d258442
+		summarizeBy: none
+		sourceColumn: Weekdagnaam
+
+		annotation SummarizationSetBy = Automatic
+
+	column Weekend
+		dataType: string
+		lineageTag: 36af97f4-6147-4edf-9043-901413c06fdc
+		summarizeBy: none
+		sourceColumn: Weekend
+
+		annotation SummarizationSetBy = Automatic
+
+	column DagVanJaar
+		dataType: double
+		lineageTag: ad1bc33a-682e-45d0-bd75-d38357cad398
+		summarizeBy: sum
+		sourceColumn: DagVanJaar
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Kalender = m
+		mode: import
+		queryGroup: DIM
+		source =
+				let
+				    Bron = #"Excel Bron",
+				    tbl_datum_Table = Bron{[Item="tbl_datum",Kind="Table"]}[Data],
+				    #"Type gewijzigd" = Table.TransformColumnTypes(tbl_datum_Table,{{"Datum", type datetime}, {"Jaar", Int64.Type}}),
+				    #"Type gewijzigd1" = Table.TransformColumnTypes(#"Type gewijzigd",{{"Datum", type date}})
+				in
+				    #"Type gewijzigd1"
+
+	annotation PBI_NavigationStepName = Navigatie
+
+	annotation PBI_ResultType = Table
+

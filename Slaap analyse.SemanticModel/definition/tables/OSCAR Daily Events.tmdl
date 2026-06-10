@@ -1,0 +1,77 @@
+table 'OSCAR Daily Events'
+	lineageTag: eddf453f-e2c7-4e43-8312-2756752f64b5
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 49636485-bec4-4a3b-9ebf-b360b44242fc
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Session Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4d6cfbba-57a3-48cf-a778-596d7b1b6623
+		summarizeBy: sum
+		sourceColumn: Session Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column Start
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 740215a1-9aea-4940-96e2-fedc13c82e52
+		summarizeBy: none
+		sourceColumn: Start
+
+		annotation SummarizationSetBy = Automatic
+
+	column End
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 871c2dfa-49d9-40c8-be0d-3dcc6944cb22
+		summarizeBy: none
+		sourceColumn: End
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Time'
+		dataType: double
+		lineageTag: fbc0f34f-7a4a-43f7-8fa1-c248701dabcd
+		summarizeBy: sum
+		sourceColumn: Total Time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column AHI
+		dataType: double
+		lineageTag: 0d531335-f90a-4f3e-a0b4-fb3d5720c2b8
+		summarizeBy: sum
+		sourceColumn: AHI
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'OSCAR Daily Events' = m
+		mode: import
+		queryGroup: FACT\OSCAR
+		source =
+				let
+				    Bron = #"OSCAR Summary",
+				    #"Andere kolommen verwijderd" = Table.SelectColumns(Bron,{"Date", "Session Count", "Start", "End", "Total Time", "AHI"}),
+				    // Datumcorrectie: OSCAR Date + 1 dag = ontwaakdatum (= Garmin datum)
+				    #"Ontwaakdatum" = Table.TransformColumns(#"Andere kolommen verwijderd", {{"Date", each Date.AddDays(_, 1), type date}})
+				in
+				    #"Ontwaakdatum"
+
+	annotation PBI_NavigationStepName = Navigatie
+
+	annotation PBI_ResultType = Table
+

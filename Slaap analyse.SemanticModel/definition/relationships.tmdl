@@ -1,0 +1,28 @@
+relationship ec68a8c2-72a7-f494-25fe-0f7b3477691c
+	fromColumn: Gedrag.datum
+	toColumn: Kalender.Datum
+
+relationship 622fec0b-edee-3b64-8a65-b187aa571265
+	fromColumn: 'Slaapdata (G)'.datum
+	toColumn: Kalender.Datum
+
+relationship 1fde672a-630b-419c-f7a1-cf67b0aad7dd
+	fromColumn: 'OSCAR Daily'.Event
+	toColumn: 'OSCAR Events'.Code
+
+relationship df8dc19a-1a5a-98cf-cdb0-f32c21001a0d
+	fromColumn: 'OSCAR Daily'.Date
+	toColumn: Kalender.Datum
+
+relationship 9a965258-4f51-7bd0-bb66-0cb50b429919
+	fromColumn: 'OSCAR Daily Events'.Date
+	toColumn: Kalender.Datum
+
+relationship 7c227ce1-6adf-8e0d-8c1f-6af046df6459
+	fromColumn: 'OSCAR Details'.Date
+	toColumn: Kalender.Datum
+
+relationship 8e728f69-186b-c72a-ad82-dc0fa48fec9f
+	fromColumn: 'OSCAR Sessions'.Date
+	toColumn: Kalender.Datum
+

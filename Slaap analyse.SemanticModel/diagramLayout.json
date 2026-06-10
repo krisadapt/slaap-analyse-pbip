@@ -1,0 +1,259 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 63.464718108845169,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 574.01755685291755,
+            "y": 943.45446195548743
+          },
+          "nodeIndex": "Kalender",
+          "nodeLineageTag": "2749c7ac-d146-4c9f-8226-a52cdbac9ecf",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 1144.0037767728238,
+            "y": 786.88759028523339
+          },
+          "nodeIndex": "OSCAR Daily",
+          "nodeLineageTag": "ad488348-ef13-49b9-a95c-229fa065ad89",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 47.580932437952924,
+            "y": 765.20453212738869
+          },
+          "nodeIndex": "OSCAR Daily Events",
+          "nodeLineageTag": "eddf453f-e2c7-4e43-8312-2756752f64b5",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 1116.1378008009372,
+            "y": 1390.7811264173074
+          },
+          "nodeIndex": "OSCAR Details",
+          "nodeLineageTag": "3fe425e8-6c35-4f09-a7eb-911851bbf5ce",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 1602.9009276303045,
+            "y": 546.78160108459463
+          },
+          "nodeIndex": "OSCAR Events",
+          "nodeLineageTag": "0ce6ee5a-36e1-4ec8-b171-b6d1e4b1ea66",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 1125.9805547606707,
+            "y": 1044.7516778707081
+          },
+          "nodeIndex": "OSCAR Sessions",
+          "nodeLineageTag": "b3b48c4b-0391-4188-a689-34922bcc902d",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 1145.332101587017,
+            "y": 466.354695685441
+          },
+          "nodeIndex": "Slaapdata (G)",
+          "nodeLineageTag": "3cf8df98-5e32-41c1-adf8-be72ec171d84",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 25.791410412182358,
+            "y": 1166.0075535456479
+          },
+          "nodeIndex": "Gedrag",
+          "nodeLineageTag": "fea0d4a2-ea31-4377-9507-5ae8e5eaca8d",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 2351.4487967962518,
+            "y": 0
+          },
+          "nodeIndex": "Metingen",
+          "nodeLineageTag": "1dcdc921-5c58-4bac-b5bc-0ddb3c2a7b55",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 6
+        }
+      ],
+      "name": "Alle tabellen",
+      "zoomValue": 40.05255472488323,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 1,
+      "scrollPosition": {
+        "x": 0,
+        "y": 81.341567993164063
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 436.1571044921875,
+            "y": 376.79258728027344
+          },
+          "nodeIndex": "Slaapdata (G)",
+          "nodeLineageTag": "3cf8df98-5e32-41c1-adf8-be72ec171d84",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 30.1571044921875,
+            "y": 243.79258728027344
+          },
+          "nodeIndex": "Kalender",
+          "nodeLineageTag": "2749c7ac-d146-4c9f-8226-a52cdbac9ecf",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 437.1571044921875,
+            "y": 80.792587280273438
+          },
+          "nodeIndex": "Gedrag",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Garmin",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 2,
+      "scrollPosition": {
+        "x": 0,
+        "y": 178.59545716208984
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 324.1571044921875,
+            "y": 12.792587280273438
+          },
+          "nodeIndex": "OSCAR Events",
+          "nodeLineageTag": "0ce6ee5a-36e1-4ec8-b171-b6d1e4b1ea66",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 690.21557269921766,
+            "y": 480.69500808620739
+          },
+          "nodeIndex": "OSCAR Daily Events",
+          "nodeLineageTag": "eddf453f-e2c7-4e43-8312-2756752f64b5",
+          "size": {
+            "height": 257,
+            "width": 308
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 482.1571044921875,
+            "y": 245.79258728027344
+          },
+          "nodeIndex": "OSCAR Daily",
+          "nodeLineageTag": "ad488348-ef13-49b9-a95c-229fa065ad89",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 16.1571044921875,
+            "y": 168.79258728027344
+          },
+          "nodeIndex": "Kalender",
+          "nodeLineageTag": "2749c7ac-d146-4c9f-8226-a52cdbac9ecf",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Daily Events",
+      "zoomValue": 89.192590520569482,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Alle tabellen",
+  "defaultDiagram": "Alle tabellen"
+}
