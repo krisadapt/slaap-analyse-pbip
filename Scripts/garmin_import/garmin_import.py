@@ -274,8 +274,8 @@ def extract_tag_rows(day: date, raw: dict) -> list[dict]:
 def extract_body_battery_rows(day: date, raw: dict) -> list[dict]:
     """Plat de RAW Body Battery data (per ~3 minuten) naar lang formaat.
 
-    Garmin geeft `sleepBodyBattery` array met {value, startGMT, startLocal} per interval.
-    Output: één rij per meting, met lokale tijd + waarde.
+    Garmin geeft `sleepBodyBattery` array met {value, startGMT} per interval (UTCmillis).
+    Output: één rij per meting, met UTC-tijd + waarde. (Lokale conversie in Power BI).
     """
     rows = []
     for entry in raw.get("sleepBodyBattery") or []:
@@ -283,19 +283,19 @@ def extract_body_battery_rows(day: date, raw: dict) -> list[dict]:
         if value is None:
             continue
 
-        # Lokale tijd: Garmin geeft deze als epoch-millis
-        start_millis = entry.get("startLocal")
-        if start_millis:
-            local_time = (
-                datetime.fromtimestamp(start_millis / 1000)
+        # UTC-tijd uit startGMT (epoch-millis)
+        start_gmt = entry.get("startGMT")
+        if start_gmt:
+            utc_time = (
+                datetime.fromtimestamp(start_gmt / 1000, tz=timezone.utc)
                 .strftime("%H:%M")
             )
         else:
-            local_time = None
+            utc_time = None
 
         rows.append({
             "datum": day.isoformat(),
-            "tijd": local_time,
+            "tijd_utc": utc_time,
             "bb_waarde": value,
             "interval_minuten": 3,  # Garmin-standaard
         })
@@ -432,9 +432,9 @@ def main():
         if bb_master.exists():
             master_bb = pd.read_csv(bb_master, dtype={"datum": str})
             kept_bb = master_bb[~master_bb["datum"].isin(bb_df["datum"])]
-            combined_bb = pd.concat([kept_bb, bb_df], ignore_index=True).sort_values(["datum", "tijd"])
+            combined_bb = pd.concat([kept_bb, bb_df], ignore_index=True).sort_values(["datum", "tijd_utc"], na_position="last")
         else:
-            combined_bb = bb_df.sort_values(["datum", "tijd"])
+            combined_bb = bb_df.sort_values(["datum", "tijd_utc"], na_position="last")
         combined_bb.to_csv(bb_master, index=False, encoding="utf-8")
         bb_nights = bb_df["datum"].nunique()
         print(f"Body Battery RAW ({bb_master.name}): {bb_nights} nacht(en) met ~{len(bb_df)//bb_nights if bb_nights else 0} metingen/nacht.")
