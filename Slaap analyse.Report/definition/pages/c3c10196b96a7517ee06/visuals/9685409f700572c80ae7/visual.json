@@ -4,10 +4,10 @@
   "position": {
     "x": 654.33825256818227,
     "y": 460.13625782201052,
-    "z": 5,
+    "z": 5000,
     "height": 223.94464259018002,
     "width": 598.35209192063724,
-    "tabOrder": 5
+    "tabOrder": 5000
   },
   "visual": {
     "visualType": "clusteredColumnChart",
@@ -79,39 +79,6 @@
   },
   "filterConfig": {
     "filters": [
-      {
-        "name": "c9488dbc490a16425035",
-        "field": {
-          "Aggregation": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "Gedrag"
-                  }
-                },
-                "Property": "gedrag"
-              }
-            },
-            "Function": 5
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "b624352f2c01a2100689",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Kalender"
-              }
-            },
-            "Property": "Datum"
-          }
-        },
-        "type": "Categorical"
-      },
       {
         "name": "0bcd59d199c956e0b742",
         "field": {

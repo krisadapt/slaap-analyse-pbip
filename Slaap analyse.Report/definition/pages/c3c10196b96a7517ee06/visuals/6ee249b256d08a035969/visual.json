@@ -4,10 +4,10 @@
   "position": {
     "x": 31.492215364244068,
     "y": 460.13625782201052,
-    "z": 6,
+    "z": 6000,
     "height": 223.94464259018002,
     "width": 589.60425431945839,
-    "tabOrder": 6
+    "tabOrder": 6000
   },
   "visual": {
     "visualType": "clusteredColumnChart",
@@ -193,39 +193,6 @@
             }
           ]
         }
-      },
-      {
-        "name": "2d1b72a3035d980c50c8",
-        "field": {
-          "Aggregation": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "Gedrag"
-                  }
-                },
-                "Property": "aantal"
-              }
-            },
-            "Function": 0
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "de98968cc0bb07a0cb54",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Kalender"
-              }
-            },
-            "Property": "Datum"
-          }
-        },
-        "type": "Categorical"
       }
     ]
   }

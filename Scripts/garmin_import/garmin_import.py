@@ -271,7 +271,38 @@ def extract_tag_rows(day: date, raw: dict) -> list[dict]:
     return rows
 
 
-def fetch_data(client: Garmin, start: date, end: date, include_tags: bool) -> tuple[pd.DataFrame, pd.DataFrame, date | None]:
+def extract_body_battery_rows(day: date, raw: dict) -> list[dict]:
+    """Plat de RAW Body Battery data (per ~3 minuten) naar lang formaat.
+
+    Garmin geeft `sleepBodyBattery` array met {value, startGMT, startLocal} per interval.
+    Output: één rij per meting, met lokale tijd + waarde.
+    """
+    rows = []
+    for entry in raw.get("sleepBodyBattery") or []:
+        value = entry.get("value")
+        if value is None:
+            continue
+
+        # Lokale tijd: Garmin geeft deze als epoch-millis
+        start_millis = entry.get("startLocal")
+        if start_millis:
+            local_time = (
+                datetime.fromtimestamp(start_millis / 1000)
+                .strftime("%H:%M")
+            )
+        else:
+            local_time = None
+
+        rows.append({
+            "datum": day.isoformat(),
+            "tijd": local_time,
+            "bb_waarde": value,
+            "interval_minuten": 3,  # Garmin-standaard
+        })
+    return rows
+
+
+def fetch_data(client: Garmin, start: date, end: date, include_tags: bool) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, date | None]:
     """Haalt per dag de slaapdata (en optioneel lifestyle-tags) op. Geeft de data terug,
     plus de laatste dag van de aaneengesloten reeks geslaagde ophalingen vanaf 'start'
     (= veilig hervatpunt voor een volgende run: een eventuele tussenliggende mislukking
@@ -286,6 +317,7 @@ def fetch_data(client: Garmin, start: date, end: date, include_tags: bool) -> tu
     zodat echte gaten (horloge niet gedragen) niet eindeloos blijven blokkeren."""
     sleep_rows = []
     tag_rows = []
+    bb_rows = []
     last_contiguous_success = None
     gap_found = False
     current = start
@@ -297,6 +329,8 @@ def fetch_data(client: Garmin, start: date, end: date, include_tags: bool) -> tu
             row = extract_sleep_row(current, raw)
             sleep_rows.append(row)
             day_has_data = row["slaap_start"] is not None
+            # Extract raw Body Battery data
+            bb_rows.extend(extract_body_battery_rows(current, raw))
         except Exception as exc:
             print(f"  Overgeslagen {current.isoformat()} (slaap): {exc}")
             day_ok = False
@@ -319,7 +353,7 @@ def fetch_data(client: Garmin, start: date, end: date, include_tags: bool) -> tu
             time.sleep(REQUEST_DELAY)
         current += timedelta(days=1)
 
-    return pd.DataFrame(sleep_rows), pd.DataFrame(tag_rows), last_contiguous_success
+    return pd.DataFrame(sleep_rows), pd.DataFrame(tag_rows), pd.DataFrame(bb_rows), last_contiguous_success
 
 
 def upsert_sleep_master(new_df: pd.DataFrame) -> tuple[int, int]:
@@ -385,12 +419,25 @@ def main():
     client = login()
 
     include_tags = not args.geen_tags
-    print(f"Slaapdata{' + lifestyle-tags' if include_tags else ''} ophalen van {start.isoformat()} tot {end.isoformat()}...")
-    sleep_df, tags_df, last_success = fetch_data(client, start, end, include_tags)
+    print(f"Slaapdata{' + lifestyle-tags + Body Battery-raw' if include_tags else ''} ophalen van {start.isoformat()} tot {end.isoformat()}...")
+    sleep_df, tags_df, bb_df, last_success = fetch_data(client, start, end, include_tags)
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     updated, added = upsert_sleep_master(sleep_df)
     print(f"Slaap-master ({SLEEP_MASTER.name}): {added} nieuwe nacht(en), {updated} bijgewerkt.")
+
+    # Body Battery RAW data opslaan
+    bb_master = OUTPUT_DIR / "garmin_body_battery_raw.csv"
+    if not bb_df.empty:
+        if bb_master.exists():
+            master_bb = pd.read_csv(bb_master, dtype={"datum": str})
+            kept_bb = master_bb[~master_bb["datum"].isin(bb_df["datum"])]
+            combined_bb = pd.concat([kept_bb, bb_df], ignore_index=True).sort_values(["datum", "tijd"])
+        else:
+            combined_bb = bb_df.sort_values(["datum", "tijd"])
+        combined_bb.to_csv(bb_master, index=False, encoding="utf-8")
+        bb_nights = bb_df["datum"].nunique()
+        print(f"Body Battery RAW ({bb_master.name}): {bb_nights} nacht(en) met ~{len(bb_df)//bb_nights if bb_nights else 0} metingen/nacht.")
 
     if include_tags:
         tag_days = upsert_tags_master(tags_df)

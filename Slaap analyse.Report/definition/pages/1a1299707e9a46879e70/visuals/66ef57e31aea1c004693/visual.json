@@ -4,10 +4,10 @@
   "position": {
     "x": 37,
     "y": 449,
-    "z": 3,
+    "z": 2000,
     "height": 239,
     "width": 591,
-    "tabOrder": 3
+    "tabOrder": 2000
   },
   "visual": {
     "visualType": "columnChart",
@@ -128,79 +128,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "80285a1ec4cce14c29bd",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Kalender"
-              }
-            },
-            "Property": "Datum"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "78d4cae1b003be1a4423",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Metingen"
-              }
-            },
-            "Property": "REM (u)"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "941abb671ee66abee0d6",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Metingen"
-              }
-            },
-            "Property": "Lichte slaap (u)"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "85fb6b92032b0c5314e6",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Metingen"
-              }
-            },
-            "Property": "Diepe slaap (u)"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "f22efb960dea3020180d",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Metingen"
-              }
-            },
-            "Property": "Wakker (u)"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

@@ -4,10 +4,10 @@
   "position": {
     "x": 654.33825256818227,
     "y": 78.730538410610166,
-    "z": 3,
+    "z": 3000,
     "height": 101.47491617367533,
     "width": 288.67864083890396,
-    "tabOrder": 3
+    "tabOrder": 3000
   },
   "visual": {
     "visualType": "card",
@@ -183,25 +183,6 @@
             }
           ]
         }
-      },
-      {
-        "name": "643994cfce13890752c4",
-        "field": {
-          "Aggregation": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "Gedrag"
-                  }
-                },
-                "Property": "status"
-              }
-            },
-            "Function": 3
-          }
-        },
-        "type": "Advanced"
       }
     ]
   }

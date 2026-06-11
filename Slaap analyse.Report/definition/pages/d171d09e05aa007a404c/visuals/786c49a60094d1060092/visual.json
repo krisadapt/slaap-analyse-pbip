@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "786c49a60094d1060092",
   "position": {
-    "x": 655.94052871087649,
-    "y": 197.77816375447253,
-    "z": 2,
-    "height": 239.04123389029772,
-    "width": 574.83725292666827,
-    "tabOrder": 2
+    "x": 970.68846940002413,
+    "y": 302.50907779247325,
+    "z": 2000,
+    "height": 357.35962486473494,
+    "width": 900.87868221714564,
+    "tabOrder": 2000
   },
   "visual": {
     "visualType": "lineClusteredColumnComboChart",
@@ -47,6 +47,24 @@
               },
               "queryRef": "Metingen.Maskeruren",
               "nativeQueryRef": "Maskeruren"
+            }
+          ]
+        },
+        "Y2": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Metingen"
+                    }
+                  },
+                  "Property": "Slaapuren"
+                }
+              },
+              "queryRef": "Metingen.Slaapuren",
+              "nativeQueryRef": "Slaapuren"
             }
           ]
         }
@@ -95,6 +113,13 @@
             "show": {
               "expr": {
                 "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "showTitle": {
+              "expr": {
+                "Literal": {
                   "Value": "false"
                 }
               }
@@ -123,7 +148,35 @@
             "show": {
               "expr": {
                 "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Slaapuren vs Maskergebruik'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "24D"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
                   "Value": "false"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'''Segoe UI Semibold'', wf_segoe-ui_semibold, helvetica, arial, sans-serif'"
                 }
               }
             }

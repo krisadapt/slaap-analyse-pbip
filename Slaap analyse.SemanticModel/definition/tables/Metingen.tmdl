@@ -215,6 +215,66 @@ table Metingen
 		displayFolder: Gedrag — Risico
 		lineageTag: f2f8f4f7-6f2f-9f3f-f7f8-f3faf6f4f7f2
 
+	/// Gemiddelde koffie per nacht (cups) — enkel gelogde dagen
+	measure 'Koffie gem' = DIVIDE([Koffie (aantal)], [Koffie (dagen gelogd)])
+		formatString: 0.0
+		displayFolder: Gedrag — Koffie
+		lineageTag: f3f9g4g7-6f3f-9f4f-f8f9-f4fbf7f5f8f3
+
+	/// Aantal dagen met koffie gelogd
+	measure 'Koffie (dagen gelogd)' = CALCULATE(DISTINCTCOUNT(Gedrag[Nacht]), Gedrag[gedrag]="Morning Caffeine", Gedrag[status]="YES")
+		formatString: 0
+		displayFolder: Gedrag — Discipline
+		lineageTag: f4fah5h8-7f4f-0f5f-f9fa-f5fcf8f6f9f4
+
+	/// Gemiddelde alcohol per nacht (cl/portions)
+	measure 'Alcohol gem' = DIVIDE([Alcohol (aantal)], [Alcohol (dagen gelogd)])
+		formatString: 0.0
+		displayFolder: Gedrag — Alcohol
+		lineageTag: g4f0h5h8-7f4f-0f5f-f9fa-f5fcf8f6f9f4
+
+	/// Aantal dagen met alcohol gelogd
+	measure 'Alcohol (dagen gelogd)' = CALCULATE(DISTINCTCOUNT(Gedrag[Nacht]), Gedrag[gedrag]="Alcohol", Gedrag[status]="YES")
+		formatString: 0
+		displayFolder: Gedrag — Discipline
+		lineageTag: g5f1i6i9-8f5f-1f6f-fa-f6fdf9f7faf5
+
+	/// Gemiddelde Trazodone-dosering per nacht (1=¼, 2=½, 3=¾, 4=gans)
+	measure 'Trazodone dosering gem' = DIVIDE([Trazodone (totaal)], [Trazodone (dagen gelogd)])
+		formatString: 0.0
+		displayFolder: Gedrag — Medicatie
+		lineageTag: i6f2j7j0-9f6f-2f7f-fb-f7fef0f8fbf6
+
+	/// Totaal Trazodone-dosering in periode
+	measure 'Trazodone (totaal)' = CALCULATE(SUM(Gedrag[aantal]), Gedrag[gedrag]="Trazadone")
+		formatString: 0
+		displayFolder: Gedrag — Medicatie
+		lineageTag: i7f3k8k1-af7f-3f8f-fc-f8fffaf9fcf7
+
+	/// Aantal dagen met Trazodone gelogd
+	measure 'Trazodone (dagen gelogd)' = CALCULATE(DISTINCTCOUNT(Gedrag[Nacht]), Gedrag[gedrag]="Trazadone", Gedrag[status]="YES")
+		formatString: 0
+		displayFolder: Gedrag — Discipline
+		lineageTag: i8f4l9l2-bf8f-4f9f-fd-f9f0fbfafd8
+
+	/// Gemiddelde suiker-inname per nacht (schaal 1–10, beschikbaar na 2026-06-12)
+	measure 'Suiker gem' = DIVIDE([Suiker (aantal)], [Suiker (dagen gelogd)])
+		formatString: 0.0
+		displayFolder: Gedrag — Voeding
+		lineageTag: j7f3k8k1-af7f-3f8f-fc-f8fffaf9fcf7
+
+	/// Aantal dagen met suiker gelogd
+	measure 'Suiker (dagen gelogd)' = CALCULATE(DISTINCTCOUNT(Gedrag[Nacht]), Gedrag[gedrag]="Suiker", Gedrag[status] IN {"YES"})
+		formatString: 0
+		displayFolder: Gedrag — Discipline
+		lineageTag: j8f4l9l2-bf8f-4f9f-fd-f9f0fbfafd9
+
+	/// Totaal suiker-inname in periode
+	measure 'Suiker (aantal)' = CALCULATE(SUM(Gedrag[aantal]), Gedrag[gedrag]="Suiker")
+		formatString: 0
+		displayFolder: Gedrag — Voeding
+		lineageTag: j9f5m0m3-cf9f-5f0f-fe-faf1fcfbfea0
+
 	partition Metingen = m
 		mode: import
 		source =

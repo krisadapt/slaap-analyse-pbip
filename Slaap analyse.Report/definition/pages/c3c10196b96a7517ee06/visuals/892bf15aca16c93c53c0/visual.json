@@ -4,10 +4,10 @@
   "position": {
     "x": 332.41782884479846,
     "y": 78.730538410610166,
-    "z": 2,
+    "z": 2000,
     "height": 101.47491617367533,
     "width": 288.67864083890396,
-    "tabOrder": 2
+    "tabOrder": 2000
   },
   "visual": {
     "visualType": "card",
@@ -183,25 +183,6 @@
             }
           ]
         }
-      },
-      {
-        "name": "a2fd1fb89d15a4e50957",
-        "field": {
-          "Aggregation": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "Gedrag"
-                  }
-                },
-                "Property": "aantal"
-              }
-            },
-            "Function": 0
-          }
-        },
-        "type": "Advanced"
       }
     ]
   }

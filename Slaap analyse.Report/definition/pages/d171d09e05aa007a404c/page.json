@@ -3,8 +3,8 @@
   "name": "d171d09e05aa007a404c",
   "displayName": "Overzicht",
   "displayOption": "FitToPage",
-  "height": 720,
-  "width": 1280,
+  "height": 1080,
+  "width": 1920,
   "objects": {
     "background": [
       {
@@ -30,7 +30,7 @@
               "scaling": {
                 "expr": {
                   "Literal": {
-                    "Value": "'Normal'"
+                    "Value": "'Fill'"
                   }
                 }
               }
@@ -40,6 +40,19 @@
             "expr": {
               "Literal": {
                 "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "displayArea": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Middle'"
               }
             }
           }

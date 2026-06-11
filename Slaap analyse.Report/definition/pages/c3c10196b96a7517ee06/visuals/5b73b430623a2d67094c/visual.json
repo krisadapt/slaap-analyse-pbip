@@ -4,10 +4,10 @@
   "position": {
     "x": 654.33825256818227,
     "y": 209.94810242829377,
-    "z": 4,
+    "z": 4000,
     "height": 227.4437776306516,
     "width": 598.35209192063724,
-    "tabOrder": 4
+    "tabOrder": 4000
   },
   "visual": {
     "visualType": "clusteredBarChart",
@@ -96,56 +96,5 @@
       }
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "fe8934754b1822017652",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Gedrag"
-              }
-            },
-            "Property": "categorie"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "e5591aa66b0156d6e48a",
-        "field": {
-          "Aggregation": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "Gedrag"
-                  }
-                },
-                "Property": "gedrag"
-              }
-            },
-            "Function": 5
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "c20fd6aa8dd2bc86d630",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Gedrag"
-              }
-            },
-            "Property": "gedrag"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
   }
 }

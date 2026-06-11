@@ -4,10 +4,10 @@
   "position": {
     "x": 43.73918800589454,
     "y": 78.730538410610166,
-    "z": 1,
+    "z": 1000,
     "height": 101.47491617367533,
     "width": 288.67864083890396,
-    "tabOrder": 1
+    "tabOrder": 1000
   },
   "visual": {
     "visualType": "card",
@@ -102,25 +102,6 @@
   },
   "filterConfig": {
     "filters": [
-      {
-        "name": "f4c9c730092ea0125305",
-        "field": {
-          "Aggregation": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "Gedrag"
-                  }
-                },
-                "Property": "aantal"
-              }
-            },
-            "Function": 0
-          }
-        },
-        "type": "Advanced"
-      },
       {
         "name": "93fb67fca366c792b0e5",
         "field": {
