@@ -1,2 +1,15 @@
 **/.pbi/localSettings.json
 **/.pbi/cache.abf
+
+# Power BI Report visuele wijzigingen (gemaakt in Power BI Desktop)
+Slaap analyse.Report/
+
+# Python cache en environment
+Scripts/*/__pycache__/
+Scripts/**/*.pyc
+Scripts/**/.env
+Scripts/**/.garmin_tokens/
+
+# OS
+.DS_Store
+Thumbs.db

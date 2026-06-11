@@ -1,0 +1,193 @@
+{
+  "dailyLogsReport": [
+    {
+      "behaviourId": 1,
+      "measurementType": "QUANTITY",
+      "calendarDate": "2026-06-08",
+      "name": "Alcohol",
+      "category": "LIFESTYLE",
+      "details": [
+        {
+          "subTypeId": 1,
+          "subTypeName": "BEER"
+        },
+        {
+          "subTypeId": 2,
+          "subTypeName": "WINE"
+        },
+        {
+          "subTypeId": 3,
+          "subTypeName": "SPIRIT"
+        },
+        {
+          "subTypeId": 4,
+          "subTypeName": "OTHER"
+        }
+      ],
+      "sleepRelated": false
+    },
+    {
+      "behaviourId": 2,
+      "measurementType": "QUANTITY",
+      "calendarDate": "2026-06-08",
+      "name": "Morning Caffeine",
+      "category": "LIFESTYLE",
+      "details": [
+        {
+          "subTypeId": 1,
+          "subTypeName": "COFFEE"
+        },
+        {
+          "subTypeId": 2,
+          "subTypeName": "TEA"
+        },
+        {
+          "subTypeId": 3,
+          "subTypeName": "OTHER"
+        },
+        {
+          "subTypeId": 4,
+          "subTypeName": "SODA"
+        },
+        {
+          "subTypeId": 5,
+          "subTypeName": "ENERGY_DRINK"
+        }
+      ],
+      "sleepRelated": false
+    },
+    {
+      "behaviourId": 3,
+      "measurementType": "NONE",
+      "calendarDate": "2026-06-08",
+      "name": "Light Exercise",
+      "category": "LIFESTYLE",
+      "sleepRelated": false
+    },
+    {
+      "behaviourId": 6,
+      "measurementType": "NONE",
+      "calendarDate": "2026-06-08",
+      "name": "Late Meals",
+      "category": "LIFESTYLE",
+      "sleepRelated": false
+    },
+    {
+      "behaviourId": 7,
+      "measurementType": "NONE",
+      "calendarDate": "2026-06-08",
+      "name": "Cold Showers/Baths",
+      "category": "SELF_CARE",
+      "sleepRelated": false
+    },
+    {
+      "behaviourId": 9,
+      "measurementType": "NONE",
+      "calendarDate": "2026-06-08",
+      "name": "Journaling",
+      "category": "SELF_CARE",
+      "sleepRelated": false
+    },
+    {
+      "behaviourId": 10,
+      "measurementType": "NONE",
+      "calendarDate": "2026-06-08",
+      "name": "Sauna/Steam Room",
+      "category": "SELF_CARE",
+      "sleepRelated": false
+    },
+    {
+      "behaviourId": 11,
+      "measurementType": "NONE",
+      "calendarDate": "2026-06-08",
+      "name": "Stretching",
+      "category": "SELF_CARE",
+      "sleepRelated": false
+    },
+    {
+      "behaviourId": 12,
+      "measurementType": "NONE",
+      "calendarDate": "2026-06-08",
+      "name": "Sunlight",
+      "category": "SELF_CARE",
+      "sleepRelated": false
+    },
+    {
+      "behaviourId": 20,
+      "measurementType": "NONE",
+      "calendarDate": "2026-06-08",
+      "name": "CPAP Machine",
+      "category": "SLEEP_RELATED",
+      "sleepRelated": true
+    },
+    {
+      "behaviourId": 21,
+      "measurementType": "NONE",
+      "calendarDate": "2026-06-08",
+      "name": "Ear Plugs/Headphones",
+      "category": "SLEEP_RELATED",
+      "sleepRelated": true
+    },
+    {
+      "behaviourId": 23,
+      "measurementType": "NONE",
+      "calendarDate": "2026-06-08",
+      "name": "Humidifier Use",
+      "category": "SLEEP_RELATED",
+      "sleepRelated": true
+    },
+    {
+      "behaviourId": 27,
+      "measurementType": "NONE",
+      "calendarDate": "2026-06-08",
+      "name": "Reading in Bed",
+      "category": "SLEEP_RELATED",
+      "sleepRelated": true
+    },
+    {
+      "behaviourId": 28,
+      "measurementType": "NONE",
+      "calendarDate": "2026-06-08",
+      "name": "Screens Before Bed",
+      "category": "SLEEP_RELATED",
+      "sleepRelated": true
+    }
+  ],
+  "completionStats": [
+    {
+      "calendarDate": "2026-06-02",
+      "totalTracking": 0,
+      "completedTracking": 0
+    },
+    {
+      "calendarDate": "2026-06-03",
+      "totalTracking": 14,
+      "completedTracking": 0
+    },
+    {
+      "calendarDate": "2026-06-04",
+      "totalTracking": 14,
+      "completedTracking": 0
+    },
+    {
+      "calendarDate": "2026-06-05",
+      "totalTracking": 14,
+      "completedTracking": 0
+    },
+    {
+      "calendarDate": "2026-06-06",
+      "totalTracking": 14,
+      "completedTracking": 0
+    },
+    {
+      "calendarDate": "2026-06-07",
+      "totalTracking": 14,
+      "completedTracking": 0
+    },
+    {
+      "calendarDate": "2026-06-08",
+      "totalTracking": 14,
+      "completedTracking": 0
+    }
+  ]
+}
