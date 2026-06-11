@@ -275,6 +275,36 @@ table Metingen
 		displayFolder: Gedrag — Voeding
 		lineageTag: j9f5m0m3-cf9f-5f0f-fe-faf1fcfbfea0
 
+	/// Gemiddelde Body Battery per kwartier
+	measure 'BB gemiddeld (kwartier)' = AVERAGE('Body Battery RAW'[bb_gem])
+		formatString: 0.0
+		displayFolder: Body Battery — Metriek
+		lineageTag: k0f6n1n4-dg0f-6f1f-ff-fbf2fdfcfb1
+
+	/// Laagste Body Battery waarde (kwartier-minimum)
+	measure 'BB laagste (kwartier)' = MIN('Body Battery RAW'[bb_min])
+		formatString: 0
+		displayFolder: Body Battery — Extremen
+		lineageTag: l1f7o2o5-eh1f-7f2f-ga-fcf3fefdfb2
+
+	/// Hoogste Body Battery waarde (kwartier-maximum)
+	measure 'BB hoogste (kwartier)' = MAX('Body Battery RAW'[bb_max])
+		formatString: 0
+		displayFolder: Body Battery — Extremen
+		lineageTag: m2f8p3p6-fi2f-8f3f-gb-fdf4fffefb3
+
+	/// Aantal metingen per kwartier (gemiddeld over selectie)
+	measure 'BB metingen (kwartier)' = AVERAGE('Body Battery RAW'[aantal_metingen])
+		formatString: 0.0
+		displayFolder: Body Battery — Discipline
+		lineageTag: n3f9q4q7-fj3f-9f4f-gc-fef5gafffb4
+
+	/// Body Battery herstel per nacht: max waarde − min waarde
+	measure 'BB herstel (nacht)' = [BB hoogste (kwartier)] - [BB laagste (kwartier)]
+		formatString: 0
+		displayFolder: Body Battery — Analyse
+		lineageTag: o4fag5r8-fk4f-af5f-gd-fffgaf0gfb5
+
 	partition Metingen = m
 		mode: import
 		source =

@@ -13,32 +13,51 @@ table 'Body Battery RAW'
 
 		annotation UnderlyingDateTimeDataType = Date
 
-	column tijd_utc
+	column kwartier
 		dataType: text
-		displayFolder: _Verborgen
 		lineageTag: 1f47a3c2-3f72-418e-a821-8139184bbac7
 		summarizeBy: none
-		sourceColumn: tijd_utc
+		sourceColumn: kwartier
 
 		annotation SummarizationSetBy = Automatic
 
-	column bb_waarde
+	column bb_gem
+		dataType: double
+		formatString: 0.0
+		lineageTag: 2f57b3c2-3f72-418e-a821-8139184bbac8
+		summarizeBy: average
+		sourceColumn: bb_gem
+
+		annotation SummarizationSetBy = Automatic
+
+	column bb_min
 		dataType: int64
 		formatString: 0
-		lineageTag: 2f57b3c2-3f72-418e-a821-8139184bbac8
-		summarizeBy: sum
-		sourceColumn: bb_waarde
+		displayFolder: _Verborgen
+		lineageTag: 3f57b3c2-3f72-418e-a821-8139184bbac9
+		summarizeBy: none
+		sourceColumn: bb_min
 
 		annotation SummarizationSetBy = Automatic
 
-	column interval_minuten
+	column bb_max
+		dataType: int64
+		formatString: 0
+		displayFolder: _Verborgen
+		lineageTag: 4f67c3c2-3f72-418e-a821-8139184bbaca
+		summarizeBy: none
+		sourceColumn: bb_max
+
+		annotation SummarizationSetBy = Automatic
+
+	column aantal_metingen
 		dataType: int64
 		isHidden
 		formatString: 0
 		displayFolder: _Verborgen
-		lineageTag: 3f67c3c2-3f72-418e-a821-8139184bbac9
+		lineageTag: 5f77d3c2-3f72-418e-a821-8139184bbacb
 		summarizeBy: none
-		sourceColumn: interval_minuten
+		sourceColumn: aantal_metingen
 
 		annotation SummarizationSetBy = Automatic
 
@@ -47,13 +66,28 @@ table 'Body Battery RAW'
 		queryGroup: FACT\Garmin
 		source =
 				let
-				    Bron = #"Garmin Bron",
-				    Content = Bron{2}[Content],
-				    #"CSV-bestand geïmporteerd" = Csv.Document(Content,[Delimiter=",", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
-				    #"Headers met verhoogd niveau" = Table.PromoteHeaders(#"CSV-bestand geïmporteerd", [PromoteAllScalars=true]),
-				    #"Type gewijzigd" = Table.TransformColumnTypes(#"Headers met verhoogd niveau",{{"datum", type date}, {"bb_waarde", Int64.Type}, {"interval_minuten", Int64.Type}})
+				    Pad = "E:\ADAPT\04 Projecten - Documents\18 CPAP Analyse\Export\Garmin\garmin_body_battery_raw.csv",
+				    Bron = Csv.Document(File.Contents(Pad),[Delimiter=",", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Headers met verhoogd niveau" = Table.PromoteHeaders(Bron, [PromoteAllScalars=true]),
+				    #"Type gewijzigd" = Table.TransformColumnTypes(#"Headers met verhoogd niveau",{{"datum", type date}, {"bb_waarde", Int64.Type}}),
+				    // Extraheer uur uit tijd_utc (HH:MM) → HH:00, HH:15, HH:30, HH:45
+				    #"Kwartier toegevoegd" = Table.AddColumn(#"Type gewijzigd", "kwartier", each
+				        let
+				            uur = Text.Start([tijd_utc], 2),
+				            minuut = Int64.From(Text.End([tijd_utc], 2)),
+				            kwart = Number.RoundDown(minuut / 15) * 15
+				        in
+				            uur & ":" & Text.PadStart(Text.From(kwart), 2, "0")
+				    ),
+				    // Groepeer per (datum, kwartier): gemiddelde, min, max
+				    #"Gegroepeerd" = Table.Group(#"Kwartier toegevoegd", {"datum", "kwartier"}, {
+				        {"bb_gem", each List.Average([bb_waarde]), type number},
+				        {"bb_min", each List.Min([bb_waarde]), type number},
+				        {"bb_max", each List.Max([bb_waarde]), type number},
+				        {"aantal_metingen", each List.Count([bb_waarde]), type number}
+				    })
 				in
-				    #"Type gewijzigd"
+				    #"Gegroepeerd"
 
 	annotation PBI_NavigationStepName = Navigatie
 
