@@ -179,6 +179,42 @@ table Metingen
 		displayFolder: Vergelijking
 		lineageTag: 6b3a8d47-5e12-4f89-a7c4-9d2f6e4b1c73
 
+	/// Aantal koffie vandaag (som van Morning Caffeine-aantallen)
+	measure 'Koffie (aantal)' = CALCULATE(SUM(Gedrag[aantal]), Gedrag[gedrag]="Morning Caffeine")
+		formatString: 0
+		displayFolder: Gedrag — Factoren
+		lineageTag: a7f3b9c2-1e4d-4a8f-b2c3-d8e5f1a9c2b7
+
+	/// Aantal alcohol vandaag (som van Alcohol-aantallen)
+	measure 'Alcohol (aantal)' = CALCULATE(SUM(Gedrag[aantal]), Gedrag[gedrag]="Alcohol")
+		formatString: 0
+		displayFolder: Gedrag — Factoren
+		lineageTag: b8f4c0d3-2f5e-5b9f-c3d4-e9f6f2b0d3c8
+
+	/// Aantal dagen in selectie met "Screens Before Bed" = YES
+	measure 'Schermen (dagen)' = CALCULATE(DISTINCTCOUNT(Gedrag[Nacht]), Gedrag[gedrag]="Screens Before Bed", Gedrag[status]="Yes")
+		formatString: 0
+		displayFolder: Gedrag — Factoren
+		lineageTag: c9f5d1e4-3f6f-6c0f-d4e5-f0f7f3c1e4d9
+
+	/// Aantal dagen in selectie met minimaal één gedragslog
+	measure 'Gelogde dagen' = DISTINCTCOUNT(Gedrag[Nacht])
+		formatString: 0
+		displayFolder: Gedrag — Discipline
+		lineageTag: d0f6e2f5-4f0f-7d1f-e5f6-f1f8f4d2e5f0
+
+	/// Percentage dagen met "Screens Before Bed" = YES van alle gelogde dagen
+	measure 'Schermen %' = DIVIDE([Schermen (dagen)], [Gelogde dagen])
+		formatString: 0%
+		displayFolder: Gedrag — Factoren
+		lineageTag: e1f7f3f6-5f1f-8e2f-f6f7-f2f9f5e3f6f1
+
+	/// Som van alle ongunstige tag-aantallen per dag (alcohol, koffie ≥3, schermen, laat eten) — clustering-indicator
+	measure 'Risicofactoren (totaal)' = [Alcohol (aantal)] + IF([Koffie (aantal)] >= 3, [Koffie (aantal)], 0) + [Schermen (dagen)]
+		formatString: 0
+		displayFolder: Gedrag — Risico
+		lineageTag: f2f8f4f7-6f2f-9f3f-f7f8-f3faf6f4f7f2
+
 	partition Metingen = m
 		mode: import
 		source =
