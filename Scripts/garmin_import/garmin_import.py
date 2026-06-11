@@ -272,11 +272,41 @@ def extract_tag_rows(day: date, raw: dict) -> list[dict]:
     return rows
 
 
-def extract_body_battery_rows(day: date, raw: dict) -> list[dict]:
-    """Plat de RAW Body Battery data (per ~3 minuten) naar lang formaat.
+def extract_body_battery_from_api(day: date, bb_data: dict) -> list[dict]:
+    """Parseert 24-uurse Body Battery-data uit get_body_battery() API.
 
-    Garmin geeft `sleepBodyBattery` array met {value, startGMT} per interval (UTCmillis).
-    Output: één rij per meting, met UTC-tijd + waarde. (Lokale conversie in Power BI).
+    Garmin geeft `bodyBatteryValuesArray` met [timestamp_ms, waarde] per checkpoint.
+    Output: één rij per meting (checkpoint), met UTC-tijd + waarde.
+    """
+    rows = []
+
+    bb_array = bb_data.get("bodyBatteryValuesArray") or []
+    for ts_ms, value in bb_array:
+        if value is None:
+            continue
+
+        # UTC-tijd uit timestamp in milliseconden
+        utc_time = (
+            datetime.fromtimestamp(ts_ms / 1000, tz=timezone.utc)
+            .strftime("%H:%M")
+        )
+
+        # Bepaal de datum: gebruik de datum van het checkpoint (in UTC)
+        checkpoint_date = datetime.fromtimestamp(ts_ms / 1000, tz=timezone.utc).date()
+
+        rows.append({
+            "datum": checkpoint_date.isoformat(),
+            "tijd_utc": utc_time,
+            "bb_waarde": value,
+            "interval_minuten": None,  # Checkpoints, geen vast interval
+        })
+
+    return rows
+
+
+def extract_body_battery_rows(day: date, raw: dict) -> list[dict]:
+    """DEPRECATED: Oude funktie die sleepBodyBattery gebruikte (enkel slaap-data).
+    Vervangen door extract_body_battery_from_api().
     """
     rows = []
     for entry in raw.get("sleepBodyBattery") or []:
@@ -284,7 +314,6 @@ def extract_body_battery_rows(day: date, raw: dict) -> list[dict]:
         if value is None:
             continue
 
-        # UTC-tijd uit startGMT (epoch-millis)
         start_gmt = entry.get("startGMT")
         if start_gmt:
             utc_time = (
@@ -298,7 +327,7 @@ def extract_body_battery_rows(day: date, raw: dict) -> list[dict]:
             "datum": day.isoformat(),
             "tijd_utc": utc_time,
             "bb_waarde": value,
-            "interval_minuten": 3,  # Garmin-standaard
+            "interval_minuten": 3,
         })
     return rows
 
@@ -330,11 +359,20 @@ def fetch_data(client: Garmin, start: date, end: date, include_tags: bool) -> tu
             row = extract_sleep_row(current, raw)
             sleep_rows.append(row)
             day_has_data = row["slaap_start"] is not None
-            # Extract raw Body Battery data
-            bb_rows.extend(extract_body_battery_rows(current, raw))
         except Exception as exc:
             print(f"  Overgeslagen {current.isoformat()} (slaap): {exc}")
             day_ok = False
+
+        # Get 24-uurse Body Battery data (per dag apart, omdat API per dag returns)
+        if day_ok:
+            time.sleep(REQUEST_DELAY)
+            try:
+                bb_data = client.get_body_battery(current.isoformat(), current.isoformat())
+                if bb_data:
+                    bb_rows.extend(extract_body_battery_from_api(current, bb_data[0]))
+            except Exception as exc:
+                print(f"  Overgeslagen {current.isoformat()} (Body Battery): {exc}")
+                day_ok = False
 
         if include_tags:
             time.sleep(REQUEST_DELAY)
