@@ -71,9 +71,10 @@ from garminconnect import Garmin
 SCRIPT_DIR = Path(__file__).resolve().parent
 load_dotenv(SCRIPT_DIR / ".env")
 
-# Standaardlocaties zijn relatief aan dit script (Scripts/garmin_import -> 18 CPAP Analyse/...).
+# Standaardlocaties zijn relatief aan dit script (Scripts/garmin_import -> 18 CPAP Analyse/Export/Garmin).
 # Via .env overschrijfbaar zodat de map probleemloos verplaatst kan worden.
-DEFAULT_OUTPUT_DIR = SCRIPT_DIR.parent.parent / "Export" / "Garmin"
+# Pad: .../PBIP/Scripts/garmin_import/ -> PBIP -> Rapporten -> 18 CPAP Analyse -> Export/Garmin
+DEFAULT_OUTPUT_DIR = SCRIPT_DIR.parent.parent.parent.parent / "Export" / "Garmin"
 DEFAULT_TOKEN_DIR = SCRIPT_DIR / ".garmin_tokens"
 STATE_FILE = SCRIPT_DIR / "last_export.json"
 
