@@ -6,6 +6,7 @@ Gebruik:
     python garmin_import.py --days 90       # geen last_export.json: laatste 90 dagen
     python garmin_import.py --start 2026-04-13 --end 2026-06-07   # expliciete periode (geen venster)
     python garmin_import.py --geen-tags     # sla de lifestyle-tags over (halveert het aantal API-calls)
+    python garmin_import.py --days 1 --yes  # volgende dag (bv. voor nieuwe custom-tags: Suiker, Stress)
 
 Output (in de output-map):
     garmin_sleep_master.csv  - één rij per nacht; bestaande datums worden overschreven (upsert)
@@ -29,6 +30,11 @@ Schema-evolutie (afgesproken beleid):
     (kan desgewenst wel, door de betreffende periode opnieuw op te halen met --start/--end).
     Nieuwe gedragingen (ook eigen/custom velden in Garmin) zijn in de tags-master gewoon
     nieuwe rijen — lang formaat, dus nooit een schemawijziging.
+
+**Custom tags (Fase 3):**
+    - Trazodone (CUSTOM_SLEEP_RELATED): dosering in kwartjes (1=¼, 2=½, 3=¾, 4=gans)
+    - Suiker (LIFESTYLE): schaal 1–10 (vanaf 2026-06-12 beschikbaar)
+    - Stress (custom veld): TBD — toe te voegen in Garmin Connect
 
 ⚠️ SpO₂-caveat: de absolute zuurstofsaturatiewaarden van dit Garmin-toestel zijn
 niet betrouwbaar (structureel te laag). De kolommen heten daarom bewust
