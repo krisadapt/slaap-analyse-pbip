@@ -26,3 +26,7 @@ relationship 8e728f69-186b-c72a-ad82-dc0fa48fec9f
 	fromColumn: 'OSCAR Sessions'.Date
 	toColumn: Kalender.Datum
 
+relationship 5289667f-573b-c593-50e5-27a8ae46bdda
+	fromColumn: 'Body Battery RAW'.datum
+	toColumn: Kalender.Datum
+

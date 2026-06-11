@@ -25,38 +25,41 @@ table 'Body Battery RAW'
 		dataType: double
 		formatString: 0.0
 		lineageTag: 2f57b3c2-3f72-418e-a821-8139184bbac8
-		summarizeBy: average
+		summarizeBy: sum
 		sourceColumn: bb_gem
 
 		annotation SummarizationSetBy = Automatic
 
 	column bb_min
-		dataType: int64
+		dataType: double
 		formatString: 0
 		displayFolder: _Verborgen
 		lineageTag: 3f57b3c2-3f72-418e-a821-8139184bbac9
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: bb_min
 
 		annotation SummarizationSetBy = Automatic
 
 	column bb_max
-		dataType: int64
+		dataType: double
+		isHidden
 		formatString: 0
 		displayFolder: _Verborgen
 		lineageTag: 4f67c3c2-3f72-418e-a821-8139184bbaca
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: bb_max
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
 	column aantal_metingen
-		dataType: int64
+		dataType: double
 		isHidden
 		formatString: 0
 		displayFolder: _Verborgen
 		lineageTag: 5f77d3c2-3f72-418e-a821-8139184bbacb
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: aantal_metingen
 
 		annotation SummarizationSetBy = Automatic
@@ -92,3 +95,4 @@ table 'Body Battery RAW'
 	annotation PBI_NavigationStepName = Navigatie
 
 	annotation PBI_ResultType = Table
+

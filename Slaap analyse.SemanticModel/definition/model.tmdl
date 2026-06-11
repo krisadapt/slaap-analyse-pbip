@@ -54,7 +54,7 @@ annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBI_ProTooling = ["DevMode","TMDL-Extension","TMDLView_Desktop"]
 
-annotation PBI_QueryOrder = ["Slaapdata (G)","Gedrag","Sharepoint","Garmin Bron","OSCAR Data Bron","OSCAR Sessions","OSCAR Details","Voorbeeldbestand (2)","Parameter2","Voorbeeldbestand transformeren (2)","Bestand transformeren (2)","Voorbeeldbestand (3)","Parameter3","Voorbeeldbestand transformeren (3)","Bestand transformeren (3)","Voorbeeldbestand","Parameter1","Voorbeeldbestand transformeren","Bestand transformeren","OSCAR Events","Kalender","Excel Bron","OSCAR Summary","OSCAR Daily Events","OSCAR Daily","OSCAR Events (2)","Metingen"]
+annotation PBI_QueryOrder = ["Slaapdata (G)","Gedrag","Sharepoint","Garmin Bron","OSCAR Data Bron","OSCAR Sessions","OSCAR Details","Voorbeeldbestand (2)","Parameter2","Voorbeeldbestand transformeren (2)","Bestand transformeren (2)","Voorbeeldbestand (3)","Parameter3","Voorbeeldbestand transformeren (3)","Bestand transformeren (3)","Voorbeeldbestand","Parameter1","Voorbeeldbestand transformeren","Bestand transformeren","OSCAR Events","Kalender","Excel Bron","OSCAR Summary","OSCAR Daily Events","OSCAR Daily","OSCAR Events (2)","Metingen","Body Battery RAW"]
 
 ref table 'Slaapdata (G)'
 ref table Gedrag
@@ -65,6 +65,7 @@ ref table Kalender
 ref table 'OSCAR Daily Events'
 ref table 'OSCAR Daily'
 ref table Metingen
+ref table 'Body Battery RAW'
 
 ref cultureInfo nl-NL
 

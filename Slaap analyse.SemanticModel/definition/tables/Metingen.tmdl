@@ -305,6 +305,30 @@ table Metingen
 		displayFolder: Body Battery — Analyse
 		lineageTag: o4fag5r8-fk4f-af5f-gd-fffgaf0gfb5
 
+	/// Maximale Body Battery per nacht (herstel-indicator bij ontwaken)
+	measure 'BB max (nacht)' = MAX('Body Battery RAW'[bb_max])
+		formatString: 0
+		displayFolder: Body Battery — Ontwaken
+		lineageTag: p5fah6s9-fl5g-bf6f-he-gafgbf1gfb6
+
+	/// Gemiddelde maximale Body Battery per nacht (trendlijn herstel over tijd)
+	measure 'BB max gemiddeld' = AVERAGEX(ALL(Kalender[Datum]), [BB max (nacht)])
+		formatString: 0.0
+		displayFolder: Body Battery — Analyse
+		lineageTag: q6fbi7t0-fm6h-cg7g-if-hbfhcf2gfb7
+
+	/// Slaapscore evaluatie: "80+ Goed" of "< 80 Let op"
+	measure 'Slaapscore Evaluatie' = IF(AVERAGE('Slaapdata (G)'[slaapscore]) >= 80, "80+ Goed", "Let op")
+		formatString: @
+		displayFolder: Garmin — Slaap
+		lineageTag: s8fddj9v2-fo8j-ei9i-kh-jdfiej4gfb9
+
+	/// Persoonlijke slaapscore baseline: gemiddelde van alle beschikbare slaapcores
+	measure 'Slaapscore Baseline' = AVERAGE('Slaapdata (G)'[slaapscore])
+		formatString: 0.0
+		displayFolder: Garmin — Analyse
+		lineageTag: t9feek0w3-fp9k-fj0j-li-kefkfh5gfca
+
 	partition Metingen = m
 		mode: import
 		source =
