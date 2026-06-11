@@ -11,7 +11,8 @@ Slaapanalyse-dashboard: Power BI-rapport met 3 pagina's (Overzicht, Nacht-detail
 
 ## Model
 - **Tabellen:** Slaapdata (G), OSCAR Daily/Events/Details, Gedrag, Kalender, OSCAR Events (ref), Metingen
-- **Measures:** 25 stuks (AHI, Garmin-metingen, Vergelijking)
+- **Measures:** 32 stuks (AHI-familie, Events, Garmin-metingen, Vergelijking, Gedrag-KPI's)
+  - Gedrag-measures (7): Koffie, Alcohol, Schermen %, Gelogde dagen, Risicofactoren
 - **Relaties:** Gedrag.Nacht → Kalender; Details.Nacht → Kalender; datumcorrectie OSCAR +1
 - **Compatibility:** 1601 (dynamic format strings)
 
@@ -25,20 +26,17 @@ Slaapanalyse-dashboard: Power BI-rapport met 3 pagina's (Overzicht, Nacht-detail
 - Heatmap: matrix-visual opzet (datum × categorie, kleur naar aantal)
 
 ## Volgende sessie
-1. Git: `git push` naar GitHub (PBIP-repo linken)
-2. Visueel: card + heatmap afmaken op basis van screenshots
-3. Model: measures-aanpassingen naar visueel-feedback
-4. Documenten: afronden (plan, rapportbeschrijving)
-5. Fase 3 voorbereiding: Gedrag-factor-mapping
+1. ✅ Git: `git push` naar GitHub — KLAAR (8 commits, incl. Gedrag-measures)
+2. Visueel: card + heatmap afmaken op basis van screenshots (7 nieuwe Gedrag-measures beschikbaar)
+3. Model: measures-aanpassingen naar visueel-feedback (indien nodig)
+4. Fase 3 voorbereiding: Gedrag-factor-mapping vastleggen
 
-## Commando's
-```bash
-cd "E:\ADAPT\04 Projecten - Documents\18 CPAP Analyse\Rapporten\PBIP"
-git status
-git push origin main
-```
+## Snelle checklist na reopening
+- PBIP-model herladen (cache-refresh) vóór visueel-werk
+- Power BI-pagina's 1–3: 32 measures nu beschikbaar in Metingen-folder
+- GitHub: alle code synced
 
 ---
 
-**Status:** Model ✅ | Visueel 🔄 | GitHub-push ⏳
-**Last updated:** 2026-06-10 23:00 UTC
+**Status:** Model ✅ | Documentatie ✅ | GitHub ✅ | Visueel 🔄
+**Last updated:** 2026-06-11 21:15 UTC
