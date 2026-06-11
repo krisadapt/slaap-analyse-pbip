@@ -14,7 +14,7 @@ table 'Body Battery RAW'
 		annotation UnderlyingDateTimeDataType = Date
 
 	column kwartier
-		dataType: text
+		dataType: string
 		lineageTag: 1f47a3c2-3f72-418e-a821-8139184bbac7
 		summarizeBy: none
 		sourceColumn: kwartier
