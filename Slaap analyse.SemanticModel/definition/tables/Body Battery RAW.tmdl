@@ -1,0 +1,60 @@
+table 'Body Battery RAW'
+	lineageTag: 4df8df98-5e32-41c1-adf8-be72ec171d85
+
+	column datum
+		dataType: dateTime
+		formatString: Long Date
+		displayFolder: _Verborgen
+		lineageTag: ec9354c2-3f72-418e-a821-8139184bbac6
+		summarizeBy: none
+		sourceColumn: datum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column tijd_utc
+		dataType: text
+		displayFolder: _Verborgen
+		lineageTag: 1f47a3c2-3f72-418e-a821-8139184bbac7
+		summarizeBy: none
+		sourceColumn: tijd_utc
+
+		annotation SummarizationSetBy = Automatic
+
+	column bb_waarde
+		dataType: int64
+		formatString: 0
+		lineageTag: 2f57b3c2-3f72-418e-a821-8139184bbac8
+		summarizeBy: sum
+		sourceColumn: bb_waarde
+
+		annotation SummarizationSetBy = Automatic
+
+	column interval_minuten
+		dataType: int64
+		isHidden
+		formatString: 0
+		displayFolder: _Verborgen
+		lineageTag: 3f67c3c2-3f72-418e-a821-8139184bbac9
+		summarizeBy: none
+		sourceColumn: interval_minuten
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Body Battery RAW' = m
+		mode: import
+		queryGroup: FACT\Garmin
+		source =
+				let
+				    Bron = #"Garmin Bron",
+				    Content = Bron{2}[Content],
+				    #"CSV-bestand geïmporteerd" = Csv.Document(Content,[Delimiter=",", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Headers met verhoogd niveau" = Table.PromoteHeaders(#"CSV-bestand geïmporteerd", [PromoteAllScalars=true]),
+				    #"Type gewijzigd" = Table.TransformColumnTypes(#"Headers met verhoogd niveau",{{"datum", type date}, {"bb_waarde", Int64.Type}, {"interval_minuten", Int64.Type}})
+				in
+				    #"Type gewijzigd"
+
+	annotation PBI_NavigationStepName = Navigatie
+
+	annotation PBI_ResultType = Table
